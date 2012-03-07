@@ -1,0 +1,93 @@
+body
+{
+	background-color: #fff;
+	overflow: auto;
+	color: #fff;
+	/*font-family: Helvetica, sans-serif;*/
+	font-family: 'Doppio One', sans-serif;
+	font-size: 25px;
+}
+#programland_security
+{
+	background-color: #fff;
+}
+#container
+{
+	/*margin-top: 100px;*/
+	/*position: relative;*/
+	width: 1270px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+}
+#top-bar
+{
+	opacity: 0;
+	width: 1270px;
+	height: 75px;
+	position: relative;
+	/*margin-top: 15px;*/
+}
+	#group-name
+	{
+		position: relative;
+		float:left;
+		margin-left: 20px;
+		color: #333;
+	}
+	#nav
+	{
+		position: relative;
+		float: right;
+		margin-left: 10px;
+		margin-top: 15px;
+		color: #333;
+		background-color: #f0f;
+		/*width: 500px;*/
+	}
+	#nav .btn
+	{
+		float: left;
+		font-size: 15px;
+		padding: 10px;
+		text-align: center;
+		background-color: #fff;
+		width: 75px;
+		height: 15px;
+		cursor: pointer;
+	}
+#users
+{
+	position: relative;
+	margin-top: 15px;
+	width: 1270px;
+}
+.user
+{
+	opacity: 0;
+	position: absolute;
+	width: 245px;
+	height: 50px;
+	/*padding: 10px;*/
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
+	-webkit-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+	-moz-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+	-o-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+	box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+}
+
+.user p
+{
+	text-align: center;
+	padding-top: 13px;
+	/*background-color: #DDD;*/
+}
+#footer
+{
+	height: 50px;
+	width: 1270px;
+	background-color: #DDD;
+}

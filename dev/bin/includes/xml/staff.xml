@@ -1,0 +1,193 @@
+<bigspaceship>
+	<employee>
+		<name>Michael Lebowitz</name>
+		<role>CEO-Founder</role>
+		<status>FT</status>
+		<startDate>3/1/00</startDate>
+		<endDate></endDate>
+		<affiliations>*</affiliations>
+	</employee>
+	<employee>
+		<name>Joshua Hirsch</name>
+		<role>Minister of Technology</role>
+		<status>FT</status>
+		<startDate>6/11/02</startDate>
+		<endDate></endDate>
+		<affiliations>coders,*</affiliations>
+	</employee>
+	<employee>
+		<name>Dave Chau</name>
+		<role>Design Director</role>
+		<status>FT</status>
+		<startDate>9/1/03</startDate>
+		<endDate></endDate>
+		<affiliations>designers,cheapies</affiliations>
+	</employee>
+	<employee>
+		<name>S. Jason Prohaska</name>
+		<role>GM</role>
+		<status>FT</status>
+		<startDate>9/27/03</startDate>
+		<endDate></endDate>
+		<affiliations>*</affiliations>
+	</employee>
+	<employee>
+		<name>Jamie Kosoy</name>
+		<role>Associate Technical Director</role>
+		<status>FT</status>
+		<startDate>5/16/05</startDate>
+		<endDate></endDate>
+		<affiliations>coders,bears</affiliations>
+	</employee>
+	<employee>
+		<name>Tyson Damman</name>
+		<role>Sr. Art Director</role>
+		<status>FT</status>
+		<startDate>8/22/05</startDate>
+		<endDate></endDate>
+		<affiliations>designers,bears</affiliations>
+	</employee>
+	<employee>
+		<name>Mike Delosreyes</name>
+		<role>QA Lead</role>
+		<status>FT</status>
+		<startDate>5/30/06</startDate>
+		<endDate></endDate>
+		<affiliations>coders,qa</affiliations>
+	</employee>
+	<employee>
+		<name>Stephen Koch</name>
+		<role>Sr. Developer</role>
+		<status>FT</status>
+		<startDate>9/18/06</startDate>
+		<endDate></endDate>
+		<affiliations>coders,cheapies</affiliations>
+	</employee>
+	<employee>
+		<name>Sabah Ahmed</name>
+		<role>Producer</role>
+		<status>FT</status>
+		<startDate>2/5/07</startDate>
+		<endDate></endDate>
+		<affiliations>producers,bears</affiliations>
+	</employee>
+	<employee>
+		<name>Chris Petrillo</name>
+		<role>Designer</role>
+		<status>FT</status>
+		<startDate>6/18/07</startDate>
+		<endDate></endDate>
+		<affiliations>designers,cheapies</affiliations>
+	</employee>
+	<employee>
+		<name>Nikki Loffredo</name>
+		<role>EA to Michael Lebowitz / Office Admin</role>
+		<status>FT</status>
+		<startDate>9/10/07</startDate>
+		<endDate></endDate>
+		<affiliations>*</affiliations>
+	</employee>
+	<employee>
+		<name>Rick Disick</name>
+		<role>CFO</role>
+		<status>FT</status>
+		<startDate>10/1/07</startDate>
+		<endDate></endDate>
+		<affiliations>*</affiliations>
+	</employee>
+	<employee>
+		<name>Jason Hart</name>
+		<role>Sr. Art Director</role>
+		<status>FT</status>
+		<startDate>10/8/07</startDate>
+		<endDate></endDate>
+		<affiliations>designers,squids</affiliations>
+	</employee>
+	<employee>
+		<name>James Ce</name>
+		<role>IT Engineer</role>
+		<status>FT</status>
+		<startDate>4/14/08</startDate>
+		<endDate></endDate>
+		<affiliations>IT</affiliations>
+	</employee>
+	<employee>
+		<name>Nathan Peters</name>
+		<role>Designer</role>
+		<status>FT</status>
+		<startDate>9/1/08</startDate>
+		<endDate></endDate>
+		<affiliations>designers,squids</affiliations>
+	</employee>
+	<employee>
+		<name>Ranae Heuer</name>
+		<role>VP Client Services</role>
+		<status>FT</status>
+		<startDate>10/6/08</startDate>
+		<endDate></endDate>
+		<affiliations>producers,*</affiliations>
+	</employee>
+	<employee>
+		<name>Benjamin Bojko</name>
+		<role>Developer</role>
+		<status>FT</status>
+		<startDate>2/9/09</startDate>
+		<endDate></endDate>
+		<affiliations>coders,bears</affiliations>
+	</employee>
+	<employee>
+		<name>Victor Pineiro</name>
+		<role>Strategist</role>
+		<status>FT</status>
+		<startDate>4/17/09</startDate>
+		<endDate></endDate>
+		<affiliations>strategy</affiliations>
+	</employee>
+	<employee>
+		<name>Jay Quercia</name>
+		<role>Designer</role>
+		<status>FT</status>
+		<startDate>9/14/09</startDate>
+		<endDate></endDate>
+		<affiliations>designers,cheapies</affiliations>
+	</employee>
+	<employee>
+		<name>Josh Teixeira</name>
+		<role>Sr. Strategist</role>
+		<status>FT</status>
+		<startDate>3/1/10</startDate>
+		<endDate></endDate>
+		<affiliations>strategy</affiliations>
+	</employee>
+	<employee>
+		<name>Alec Cumming</name>
+		<role>Developer</role>
+		<status>FT</status>
+		<startDate>3/8/10</startDate>
+		<endDate></endDate>
+		<affiliations>coders,bears</affiliations>
+	</employee>
+	<employee>
+		<name>Becca Beacham</name>
+		<role>Client Services Manager</role>
+		<status>FT</status>
+		<startDate></startDate>
+		<endDate></endDate>
+		<affiliations>clients,*</affiliations>
+	</employee>
+	<employee>
+		<name>Lindsay Brady</name>
+		<role>Producer</role>
+		<status>FT</status>
+		<startDate></startDate>
+		<endDate></endDate>
+		<affiliations>producers,stephanies</affiliations>
+	</employee>
+	<!-- <employee>
+		<name></name>
+		<role></role>
+		<status></status>
+		<startDate></startDate>
+		<endDate></endDate>
+	</employee> -->
+</bigspaceship>

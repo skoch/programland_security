@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"path": "../dev/src",
+			"name": "Source"
+		},
+		{
+			"path": "../dev/bin",
+			"name": "Deploy"
+		},
+		{
+			"path": "../docs",
+			"name": "General Docs"
+		}
+	]
+}
