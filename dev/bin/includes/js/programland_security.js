@@ -47,8 +47,6 @@ $(document).ready(
 
 		function init()
 		{
-			console.log( 'INIT' );
-
 			_addMouseOver( $( '.btn' ) );
 			$( '.btn' ).click( _clickHandler );
 			// var a = [{'full_name': 'Able Parris'},{'full_name': 'Stephen Koch'},{'full_name': 'Zelda Jones'},{'full_name': 'Xavier Humphrey'}];
@@ -76,12 +74,11 @@ $(document).ready(
 				{'list': _bearsList, 'anti': _bearsAntiList, 'name': "The Special Bears", 'id': 'bears'},
 				{'list': _cheapiesList, 'anti': _cheapiesAntiList, 'name': "Cheapies Playhaus", 'id': 'cheapies'},
 				{'list': _stephaniesList, 'anti': _stephaniesAntiList, 'name': "The Stephanies", 'id': 'stephanies'},
-				{'list': _robotsList, 'anti': _robotsAntiList, 'name': "Candy Robots", 'id': 'robots'},
+				{'list': _robotsList, 'anti': _robotsAntiList, 'name': "Candy Robot", 'id': 'robots'},
 				{'list': _milkshakeList, 'anti': _milkshakeAntiList, 'name': "Milkshake Enterprise", 'id': 'milkshake'},
 				{'list': _noTeamList, 'anti': _noTeamAntiList, 'name': "Unassigned!", 'id': 'none'},
 			];
 
-			// console.log( 'users', _users );
 			var items = [];
 			var _running_height = 0;
 			for( var i = 0; i < _users.length; i++ )
@@ -89,16 +86,28 @@ $(document).ready(
 				_users[i].status = Math.round( Math.random() * 4 );
 				// console.log( _users[i] );
 
+				// grab the filters for isotope
+				var filters = _users[i].discipline;
+				for( var ii = _allLists.length - 1; ii >= 0; ii-- )
+				{
+					if( _users[i].team != 'Core' && _allLists[ii].name == _users[i].team )
+					{
+						filters += ' ' + _allLists[ii].id;
+						break;
+					}
+				}
+
+				// console.log( _users[i].full_name, filters );
+
 				var x = ((_boxWidth) + 10) * (i % 5);
 				var y = ((_boxHeight) + 10) * parseInt(i / 5);
-				$( '#users' ).append( '<div class="user" id="user-' + i + '"><p>' + _users[i].full_name + '</p></div>' );
-				$( '#user-' + i ).css( {left: Number( x ), top: Number( y ), backgroundColor: _colors[_users[i].status]} );
+				$( '#users' ).append( '<div class="user ' + filters + '" id="user-' + i + '"><p>' + _users[i].full_name + '</p></div>' );
+				// $( '#user-' + i ).css( {left: Number( x ), top: Number( y ), backgroundColor: _colors[_users[i].status]} );
+				$( '#user-' + i ).css( {backgroundColor: _colors[_users[i].status]} );
 				
 				_running_height += ( x == 0 ) ? _boxHeight + 10 : 0;
 				_users[i].id = i;
 				
-				// console.log( _users[i].team, _users[i].team.indexOf( "Bears" ) );
-
 				// push everyone in this discipline to this list otherwise put them in the other list
 				if( _users[i].discipline.indexOf( "technology" ) != -1 ) _codersList.push( _users[i] );
 				else _codersAntiList.push( _users[i] );
@@ -138,12 +147,24 @@ $(document).ready(
 
 			}
 
-			$( '#users' ).css( 'height', _running_height );
+			$( '#nav' ).isotope({
+				itemSelector: '.btn',
+				layoutMode: 'fitRows',
+				animationEngine : 'best-available'
+			});
+
+			$( '#users' ).isotope({
+				itemSelector: '.user',
+				layoutMode: 'fitRows',
+				animationEngine : 'best-available'
+			});
+
+			// $( '#users' ).css( 'height', _running_height );
 
 			$( '#top-bar' ).animate(
 				{ opacity: 1 },
 				{
-					duration: 1000,
+					duration: 500,
 					specialEasing: { opacity: 'easeInSine' }, 
 					complete: function()
 					{
@@ -151,7 +172,10 @@ $(document).ready(
 				}
 			);
 
-			_startShow();
+			// _startShow();
+			// _onChangeView();
+			$( '#users' ).isotope({ filter: '.technology' });
+			_setActiveButtonByID( 'coders' );
 		};
 
 		function _onChangeView()
@@ -314,19 +338,24 @@ $(document).ready(
 			
 			_stopShow();
 
-			for( var i = _allLists.length - 1; i >= 0; i-- )
-			{
-				if( _allLists[i].id == $evt.target.id )
-				{
-					// console.log( _allLists[i].name );
-					_animateUsersIn( _allLists[i].list );
-					_setGroupName( _allLists[i].name );
-					_setActiveButtonByID( $evt.target.id );
-					_animateUsersOut( _allLists[i].anti );
+			var selector = $( $evt.target ).attr('data-filter');
+			console.log( selector );
+			$( '#users' ).isotope({ filter: selector });
+			_setActiveButtonByID( $evt.target.id );
 
-					break;
-				};
-			};
+			// for( var i = _allLists.length - 1; i >= 0; i-- )
+			// {
+			// 	if( _allLists[i].id == $evt.target.id )
+			// 	{
+			// 		// console.log( _allLists[i].name );
+			// 		_animateUsersIn( _allLists[i].list );
+			// 		_setGroupName( _allLists[i].name );
+			// 		_setActiveButtonByID( $evt.target.id );
+			// 		_animateUsersOut( _allLists[i].anti );
+
+			// 		break;
+			// 	};
+			// };
 		};
 
 		function _startShow()
