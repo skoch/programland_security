@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>Programland Security</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/css/styles.css.php" />
-		<!-- <link rel="stylesheet" type="text/css" media="screen" href="includes/css/reset.css" /> -->
-		<!-- <link rel="stylesheet" type="text/css" media="screen" href="includes/css/master.css" /> -->
 		<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
-		<!--
-		<script type="text/javascript" src="includes/js/swfobject.js"></script>
-		<script type="text/javascript" src="includes/js/jquery.min.js"></script>
-		<script type="text/javascript" src="includes/js/jquery.easing.js"></script>
-		<script type="text/javascript" src="includes/js/Stats.js"></script>
-		<script type="text/javascript" src="includes/js/paper.js"></script>
-		<script type="text/paperscript" src="includes/js/programland_security.js" canvas="programland_security"></script>
-
-		-->
 		
 
 		<script type="text/javascript" src="includes/js/jquery.min.js"></script>
 		<script type="text/javascript" src="includes/js/jquery.easing.js"></script>
 		<script type="text/javascript" src="includes/js/jquery.isotope.min.js"></script>
-		<script type="text/javascript" src="includes/js/programland_security.js"></script>
+		<script type="text/javascript" src="includes/js/ProgramlandSecurity.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function()
+				{
+					ProgramlandSecurity.init();
+				});
+		</script>
 </head>
 <body>
 	<div id="container">
@@ -43,7 +38,6 @@
 				<div class="btn" id="robots" data-filter=".robots">y</div>
 				<div class="btn" id="milkshake" data-filter=".milkshake">milkshake</div>
 				<div class="btn" id="o">|</div>
-				<!-- <div class="btn" id="none">none</div> -->
 			</div>
 		</div>
 		<div id="users"></div>
@@ -55,10 +49,10 @@
 			<div class="color" id="c-4" data-filter=".status-4"></div>
 		</div>
 	</div>
-<!-- 
-	Clear eyes.
-	Full heart.
-	Can't lose.
--->
+	<!-- 
+		Clear eyes.
+		Full heart.
+		Can't lose.
+	-->
 </body>
 </html>

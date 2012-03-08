@@ -84,7 +84,7 @@ body
 	float: left;
 	overflow: hidden;
 	/*padding: 10px;*/
-	cursor: pointer;
+	/*cursor: pointer;*/
 	-webkit-border-radius:5px;
 	   -moz-border-radius:5px;
 	    -ms-border-radius:5px;
