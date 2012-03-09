@@ -12,6 +12,7 @@ var ProgramlandSecurity = new(function()
 	var _usersToAnimateIn = 0;
 	var _interval;
 	var _running = false;
+	var _showInterval = 10000;
 	
 	var _colors = ['#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033'];
 	var _statuses = ["Free","A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
@@ -53,7 +54,7 @@ var ProgramlandSecurity = new(function()
 		// var _running_height = 0;
 		for( var i = 0; i < _users.length; i++ )
 		{
-			_users[i].status = Math.round( Math.random() * 4 );
+			// _users[i].status = Math.round( Math.random() * 4 );
 			// console.log( _users[i] );
 
 			// grab the filters for isotope
@@ -343,7 +344,7 @@ var ProgramlandSecurity = new(function()
 		_onChangeView();
 		$( '#o' ).html( '*' );
 		_running = true;
-		_interval = setInterval( _onChangeView, 5000 );
+		_interval = setInterval( _onChangeView, _showInterval );
 	};
 
 	function _stopShow()
