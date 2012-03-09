@@ -37,10 +37,10 @@ var ProgramlandSecurity = new(function()
 		_allLists = [
 			// {'name': "Big Spaceship", 'id': 'all', 'filter': '.'},
 			{'name': "Core", 'id': 'core', 'filter': '.core'},
-			{'name': "Coders", 'id': 'coders', 'filter': '.technology'},
 			{'name': "Producers", 'id': 'producers', 'filter': '.producers'},
-			{'name': "Designers", 'id': 'designers', 'filter': '.designers'},
 			{'name': "Strategy", 'id': 'strategy', 'filter': '.strategy'},
+			{'name': "Technology", 'id': 'technology', 'filter': '.technology'},
+			{'name': "Designers", 'id': 'designers', 'filter': '.designers'},
 			{'name': "Squid Republic", 'id': 'squids', 'filter': '.squids'},
 			{'name': "The Special Bears", 'id': 'bears', 'filter': '.bears'},
 			{'name': "Cheapies Playhaus", 'id': 'cheapies', 'filter': '.cheapies'},
@@ -315,10 +315,8 @@ var ProgramlandSecurity = new(function()
 			if( ! _running )
 			{
 				_startShow();
-				$( '#o' ).html( '|' );
 			}else
 			{
-				$( '#o' ).html( '-' );
 				_stopShow();
 			}
 			return;
@@ -343,6 +341,7 @@ var ProgramlandSecurity = new(function()
 	function _startShow()
 	{
 		_onChangeView();
+		$( '#o' ).html( '*' );
 		_running = true;
 		_interval = setInterval( _onChangeView, 5000 );
 	};
@@ -351,6 +350,7 @@ var ProgramlandSecurity = new(function()
 	{
 		if( ! jQuery.browser.iphone )
 		{
+			$( '#o' ).html( '—' );
 			_running = false;
 			clearInterval( _interval );
 		}

@@ -215,6 +215,17 @@ body
 	{
 		margin-top: 120px;
 	}
+	.user
+	{
+		width: 175px;
+		margin: 5px;
+		height: 45px;
+	}
+	.user p
+	{
+		padding-top: 13px;
+		font-size: 15px;
+	}
 	/*#nav{background-color: #f0f;}*/
 }
 @media only screen and (min-width:385px) and (max-width:479px) {
