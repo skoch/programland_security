@@ -51,7 +51,7 @@
 			"full_name" => "Benjamin Bojko",
 			"title" => "Technologist",
 			"email" => "b.bojko@bigspaceship.com",
-			"team" => "Candy Robot",
+			"team" => "y [it's spanish]",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
 			"status" => "0"
@@ -87,7 +87,7 @@
 			"full_name" => "Christopher Petrillo",
 			"title" => "Senior Designer",
 			"email" => "c.petrillo@bigspaceship.com",
-			"team" => "Candy Robot",
+			"team" => "y [it's spanish]",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
 			"status" => "0"
@@ -195,7 +195,7 @@
 			"full_name" => "Karina Portuondo",
 			"title" => "Sr. Strategist",
 			"email" => "k.portuondo@bigspaceship.com",
-			"team" => "Candy Robot",
+			"team" => "y [it's spanish]",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
 			"status" => "0"
@@ -312,7 +312,7 @@
 			"full_name" => "Nooka Jones",
 			"title" => "Producer",
 			"email" => "n.jones@bigspaceship.com",
-			"team" => "Candy Robot",
+			"team" => "y [it's spanish]",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
 			"status" => "0"
@@ -420,7 +420,7 @@
 			"full_name" => "Will Simon",
 			"title" => "Jr. Strategist",
 			"email" => "w.simon@bigspaceship.com",
-			"team" => "Candy Robot",
+			"team" => "y [it's spanish]",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
 			"status" => "0"
