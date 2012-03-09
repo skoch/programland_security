@@ -11,8 +11,10 @@ var ProgramlandSecurity = new(function()
 	var _inCount = 0;
 	var _usersToAnimateIn = 0;
 	var _interval;
+	var _poll;
 	var _running = false;
 	var _showInterval = 10000;
+	var _pollInterval = 3000;
 	
 	var _colors = ['#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033'];
 	var _statuses = ["Free","A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
@@ -27,6 +29,8 @@ var ProgramlandSecurity = new(function()
 		_addMouseOver( $( '.btn' ) );
 
 		$.getJSON( 'includes/php/getStatus.php?rt=json', _setStaff );
+
+		_poll = setInterval( _onUpdateUserStatus, _pollInterval );
 	};
 
 	function _setStaff( $data )
@@ -138,6 +142,15 @@ var ProgramlandSecurity = new(function()
 		// _onChangeView();
 		// $( '#users' ).isotope({ filter: '.technology' });
 		// _setActiveButtonByID( 'coders' );
+	};
+
+	function _updateStaff( $data )
+	{
+	};
+
+	function _onUpdateUserStatus()
+	{
+		$.getJSON( 'includes/php/getStatus.php?rt=json', _updateStaff );
 	};
 
 	function _onChangeView()
