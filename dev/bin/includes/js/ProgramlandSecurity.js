@@ -14,7 +14,8 @@ var ProgramlandSecurity = new(function()
 	var _poll;
 	var _running = false;
 	var _showInterval = 10000;
-	var _pollInterval = 3000;
+	var _pollInterval = 1000 * 60 * 30; // every 30 minutes ?
+	var _userColorList = [];
 	
 	var _colors = ['#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033'];
 	var _statuses = ["Free","A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
@@ -92,6 +93,10 @@ var ProgramlandSecurity = new(function()
 			$( '#user-' + i ).css( {backgroundColor: _colors[_users[i].status]} );
 
 			_users[i].id = i;
+			_userColorList[name] = {
+				'id': i, 
+				'color': _colors[_users[i].status]
+			};
 
 			/*
 				discipline: "designers"
@@ -146,6 +151,34 @@ var ProgramlandSecurity = new(function()
 
 	function _updateStaff( $data )
 	{
+		for( var n in _userColorList )
+		{
+			for( var ii = $data.users.length - 1; ii >= 0; ii-- )
+			{
+				var name = $data.users[ii].full_name;
+				if( jQuery.browser.iphone )
+				{
+					var pieces = $data.users[ii].full_name.split( ' ' );
+					name = pieces[0].charAt( 0 ) + '. ' + pieces[pieces.length - 1];
+				}
+				if( name == n )
+				{
+					if( _userColorList[n].color != _colors[$data.users[ii].status] )
+					{
+						$( '#user-' + _userColorList[n].id ).css( '-webkit-transition', 'background-color .5s linear' );
+						$( '#user-' + _userColorList[n].id ).css( '-moz-transition', 'background-color .5s linear' );
+						$( '#user-' + _userColorList[n].id ).css( '-ms-transition', 'background-color .5s linear' );
+						$( '#user-' + _userColorList[n].id ).css( '-o-transition', 'background-color .5s linear' );
+						$( '#user-' + _userColorList[n].id ).css( 'transition', 'background-color .5s linear' );
+
+						$( '#user-' + _userColorList[n].id ).css( 'background-color',  _colors[$data.users[ii].status] );
+
+						_userColorList[n].color = _colors[$data.users[ii].status];
+					}
+					break;
+				};
+			}
+		}
 	};
 
 	function _onUpdateUserStatus()
