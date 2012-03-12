@@ -14,7 +14,7 @@ var ProgramlandSecurity = new(function()
 	var _poll;
 	var _running = false;
 	var _showInterval = 10000;
-	var _pollInterval = 3000;//1000 * 60 * 30; // every 30 minutes ?
+	var _pollInterval = 1000 * 60 * 30; // every 30 minutes ?
 	var _userColorList = [];
 	var _statusesInUse = [];
 	
@@ -181,21 +181,8 @@ var ProgramlandSecurity = new(function()
 						// user.css( 'transition', 'background-color .5s linear' );
 
 						user.css( 'background-color', _colors[$data.users[ii].status] );
-						// user.attr( 'data-filter', '.status-' + $data.users[ii].status );
 						user.removeClass( 'status-' + _userColorList[n].status );
 						user.addClass( 'status-' + $data.users[ii].status );
-						// console.log( '>>>',user.attr( 'data-filter' ) );
-
-						// $( '#users' ).isotope( 'remove', user, function(){
-						// 	console.log( 'removed' );
-						// } );
-
-						// var newUser = $( '<div class="user ' + filters
-						// 	+ '" id="user-' + i
-						// 	+ '" data-filter=".status-' + _users[i].status + '"><p>'
-						// 	+ name + '</p></div>'
-						// );
-						// $( '#users' ).isotope( 'insert', newUser );
 
 						_userColorList[n].color = _colors[$data.users[ii].status];
 					}
