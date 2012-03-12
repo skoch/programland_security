@@ -14,10 +14,11 @@ var ProgramlandSecurity = new(function()
 	var _poll;
 	var _running = false;
 	var _showInterval = 10000;
-	var _pollInterval = 1000 * 60 * 30; // every 30 minutes ?
+	var _pollInterval = 3000;//1000 * 60 * 30; // every 30 minutes ?
 	var _userColorList = [];
+	var _statusesInUse = [];
 	
-	var _colors = ['#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033'];
+	var _colors = [ '#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033' ];
 	var _statuses = ["Free","A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
 
 	this.init = function init()
@@ -55,12 +56,9 @@ var ProgramlandSecurity = new(function()
 			{'name': "Milkshake Enterprise", 'id': 'milkshake', 'filter': '.milkshake'}
 		];
 
-		var items = [];
-		// var _running_height = 0;
 		for( var i = 0; i < _users.length; i++ )
 		{
 			// _users[i].status = Math.round( Math.random() * 4 );
-			// console.log( _users[i] );
 
 			// grab the filters for isotope
 			var filters = _users[i].discipline;
@@ -92,11 +90,14 @@ var ProgramlandSecurity = new(function()
 			);
 			$( '#user-' + i ).css( {backgroundColor: _colors[_users[i].status]} );
 
-			_users[i].id = i;
+			// _users[i].id = i;
 			_userColorList[name] = {
 				'id': i, 
+				'status': _users[i].status,
 				'color': _colors[_users[i].status]
 			};
+
+			_statusesInUse.push( _users[i].status );
 
 			/*
 				discipline: "designers"
@@ -109,6 +110,8 @@ var ProgramlandSecurity = new(function()
 			*/
 
 		}
+
+		_updateStatusButtons();
 
 		// $( '.user' ).click( _userClickHandler );
 		$( '.color' ).click( _colorClickHandler );
@@ -151,6 +154,8 @@ var ProgramlandSecurity = new(function()
 
 	function _updateStaff( $data )
 	{
+		console.log( '_updateStaff' );
+		_statusesInUse = [];
 		for( var n in _userColorList )
 		{
 			for( var ii = $data.users.length - 1; ii >= 0; ii-- )
@@ -161,24 +166,45 @@ var ProgramlandSecurity = new(function()
 					var pieces = $data.users[ii].full_name.split( ' ' );
 					name = pieces[0].charAt( 0 ) + '. ' + pieces[pieces.length - 1];
 				}
+				
+				_statusesInUse.push( $data.users[ii].status );
+
 				if( name == n )
 				{
 					if( _userColorList[n].color != _colors[$data.users[ii].status] )
 					{
-						$( '#user-' + _userColorList[n].id ).css( '-webkit-transition', 'background-color .5s linear' );
-						$( '#user-' + _userColorList[n].id ).css( '-moz-transition', 'background-color .5s linear' );
-						$( '#user-' + _userColorList[n].id ).css( '-ms-transition', 'background-color .5s linear' );
-						$( '#user-' + _userColorList[n].id ).css( '-o-transition', 'background-color .5s linear' );
-						$( '#user-' + _userColorList[n].id ).css( 'transition', 'background-color .5s linear' );
+						var user = $( '#user-' + _userColorList[n].id );
+						// user.css( '-webkit-transition', 'background-color .5s linear' );
+						// user.css( '-moz-transition', 'background-color .5s linear' );
+						// user.css( '-ms-transition', 'background-color .5s linear' );
+						// user.css( '-o-transition', 'background-color .5s linear' );
+						// user.css( 'transition', 'background-color .5s linear' );
 
-						$( '#user-' + _userColorList[n].id ).css( 'background-color',  _colors[$data.users[ii].status] );
+						user.css( 'background-color', _colors[$data.users[ii].status] );
+						// user.attr( 'data-filter', '.status-' + $data.users[ii].status );
+						user.removeClass( 'status-' + _userColorList[n].status );
+						user.addClass( 'status-' + $data.users[ii].status );
+						// console.log( '>>>',user.attr( 'data-filter' ) );
+
+						// $( '#users' ).isotope( 'remove', user, function(){
+						// 	console.log( 'removed' );
+						// } );
+
+						// var newUser = $( '<div class="user ' + filters
+						// 	+ '" id="user-' + i
+						// 	+ '" data-filter=".status-' + _users[i].status + '"><p>'
+						// 	+ name + '</p></div>'
+						// );
+						// $( '#users' ).isotope( 'insert', newUser );
 
 						_userColorList[n].color = _colors[$data.users[ii].status];
 					}
+
 					break;
 				};
 			}
 		}
+		_updateStatusButtons();
 	};
 
 	function _onUpdateUserStatus()
@@ -335,23 +361,26 @@ var ProgramlandSecurity = new(function()
 
 	function _colorClickHandler( $evt )
 	{
-		_stopShow();
-
-		// remove active button
-		for( var i = _allLists.length - 1; i >= 0; i-- )
+		if( _statusesInUse.indexOf( $evt.target.id.split( '-' )[1] ) != -1 )
 		{
-			$( '#' + _allLists[i].id ).css( 'background-color', '' );
-			$( '#' + _allLists[i].id ).removeClass( 'active' );
-		}
+			_stopShow();
 
-		var selector = $( $evt.target ).attr( 'data-filter' );
-		if( ! selector )
-		{
-			selector = $( $evt.target ).parent().attr( 'data-filter' );
+			// remove active button
+			for( var i = _allLists.length - 1; i >= 0; i-- )
+			{
+				$( '#' + _allLists[i].id ).css( 'background-color', '' );
+				$( '#' + _allLists[i].id ).removeClass( 'active' );
+			}
+
+			var selector = $( $evt.target ).attr( 'data-filter' );
+			if( ! selector )
+			{
+				selector = $( $evt.target ).parent().attr( 'data-filter' );
+			}
+			// console.log( selector );
+			_setGroupName( _statuses[selector.split( '-' )[1]] );
+			$( '#users' ).isotope({ filter: selector });
 		}
-		// console.log( selector );
-		_setGroupName( _statuses[selector.split( '-' )[1]] );
-		$( '#users' ).isotope({ filter: selector });
 	};
 
 	function _btnClickHandler( $evt )
@@ -400,6 +429,37 @@ var ProgramlandSecurity = new(function()
 			$( '#o' ).html( '—' );
 			_running = false;
 			clearInterval( _interval );
+		}
+	};
+
+	Array.prototype.unique = function()
+	{
+		var a = [];
+		var l = this.length;
+		for( var i = 0; i < l; i++ )
+		{
+			for( var j = i + 1; j < l; j++ )
+			{
+				// If this[i] is found later in the array
+				if( this[i] === this[j] )
+					j = ++i;
+			}
+			a.push( this[i] );
+		}
+		return a;
+	};
+
+	function _updateStatusButtons()
+	{
+		_statusesInUse = _statusesInUse.unique();
+		for( var i = 4; i >= 0; i-- )
+		{
+			$( '#c-' + i ).addClass( 'inactive' );
+		}
+
+		for( var i = _statusesInUse.length - 1; i >= 0; i-- )
+		{
+			$( '#c-' + _statusesInUse[i] ).removeClass( 'inactive' );
 		}
 	};
 

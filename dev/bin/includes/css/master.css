@@ -122,8 +122,14 @@ body
 	width:  10px;
 	height: 10px;
 	margin-right: 5px;
-	cursor: crosshair;
+	cursor: pointer;
 }
+.color.inactive
+{
+	cursor: auto;
+	opacity: .25;
+}
+
 #c-0{ background-color: #339900; }
 #c-1{ background-color: #006699; }
 #c-2{ background-color: #FFCC00; }
