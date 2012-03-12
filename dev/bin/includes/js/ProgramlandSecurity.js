@@ -17,6 +17,7 @@ var ProgramlandSecurity = new(function()
 	var _pollInterval = 1000 * 60 * 30; // every 30 minutes ?
 	var _userColorList = [];
 	var _statusesInUse = [];
+	var _currentUserID;
 	
 	var _colors = [ '#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033' ];
 	var _statuses = ["Free","A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
@@ -27,11 +28,7 @@ var ProgramlandSecurity = new(function()
 
 		setTimeout( function(){ window.scrollTo( 0, 1 ); }, 100 );
 
-		$( '.btn' ).click( _btnClickHandler );
-		_addMouseOver( $( '.btn' ) );
-
 		$.getJSON( 'includes/php/getStatus.php?rt=json', _setStaff );
-
 		_poll = setInterval( _onUpdateUserStatus, _pollInterval );
 	};
 
@@ -91,7 +88,8 @@ var ProgramlandSecurity = new(function()
 			$( '#user-' + i ).css( {backgroundColor: _colors[_users[i].status]} );
 
 			// _users[i].id = i;
-			_userColorList[name] = {
+			// _userColorList[name] = {
+			_userColorList[_users[i].full_name] = {
 				'id': i, 
 				'status': _users[i].status,
 				'color': _colors[_users[i].status]
@@ -113,8 +111,21 @@ var ProgramlandSecurity = new(function()
 
 		_updateStatusButtons();
 
-		// $( '.user' ).click( _userClickHandler );
+		$( '.btn' ).click( _btnClickHandler );
+		_addMouseOver( $( '.btn' ) );
+
+		$( '.user' ).click( _userClickHandler );
 		$( '.color' ).click( _colorClickHandler );
+		$( '.update-color' ).click( _updateColorClickHandler );
+		$( '#change-color #close' ).click( _onCloseColorHandler );
+		// $( 'body' ).click(function()
+		// {
+		// 	console.log( '>>>' );
+		// 	if( $( '#change-color' ).css( 'opacity' ) )
+		// 	{
+		// 		$( '#change-color' ).css( {opacity: 0} );
+		// 	}
+		// })
 
 		$( '#nav' ).isotope({
 			itemSelector: '.btn',
@@ -154,7 +165,6 @@ var ProgramlandSecurity = new(function()
 
 	function _updateStaff( $data )
 	{
-		console.log( '_updateStaff' );
 		_statusesInUse = [];
 		for( var n in _userColorList )
 		{
@@ -181,10 +191,12 @@ var ProgramlandSecurity = new(function()
 						// user.css( 'transition', 'background-color .5s linear' );
 
 						user.css( 'background-color', _colors[$data.users[ii].status] );
+						user.attr( 'data-filter', '.status-' + $data.users[ii].status );
 						user.removeClass( 'status-' + _userColorList[n].status );
 						user.addClass( 'status-' + $data.users[ii].status );
 
 						_userColorList[n].color = _colors[$data.users[ii].status];
+						_userColorList[n].status = $data.users[ii].status;
 					}
 
 					break;
@@ -343,9 +355,61 @@ var ProgramlandSecurity = new(function()
 
 	function _userClickHandler( $evt )
 	{
+		var id = $( $evt.target ).attr( 'id' );
+		if( ! id )
+		{
+			id = $( $evt.target ).parent().attr( 'id' );
+		}
+		// console.log( '_userClickHandler', id );
+		_currentUserID = id;
+		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
+		// todo: update all opacity animations to use CSS transitions or jQuery
+		$( '#change-color p' ).html( name );
+		$( '#change-color' ).css( {left: $evt.pageX, top: $evt.pageY, opacity: 1} );
+		_stopShow();
+		// $( '#change-color' ).animate(
+		// 	{ opacity: 1 },
+		// 	{
+		// 		duration: 250,
+		// 		specialEasing: { opacity: 'easeInSine' }, 
+		// 		complete: function()
+		// 		{
+		// 		}
+		// 	}
+		// );
 
 	};
 
+	function _updateColorClickHandler( $evt )
+	{
+		if( _currentUserID )
+		{
+			var name = _getNameFromID( _currentUserID.split( '-' )[1] );
+			var newStatus = $evt.target.id.split( '-' )[1];
+			$.post(
+				'includes/php/updateStatus.php',
+				{ action: 'update', name: name, status: newStatus },
+				function( $data )
+				{
+					console.log( $data.success );
+					if( $data.success )
+					{
+						_updateStaff( $data );
+					}else
+					{
+						console.log( 'error' );
+					}
+					$( '#change-color' ).css( 'opacity', 0 );
+				},
+				"json"
+			);
+		}
+	};
+
+	function _onCloseColorHandler( $evt )
+	{
+		$( '#change-color' ).css( 'opacity', 0 );
+	};
 	function _colorClickHandler( $evt )
 	{
 		if( _statusesInUse.indexOf( $evt.target.id.split( '-' )[1] ) != -1 )
@@ -450,6 +514,19 @@ var ProgramlandSecurity = new(function()
 		}
 	};
 
+	function _getNameFromID( $id )
+	{
+		// console.log( $id );
+		for( var n in _userColorList )
+		{
+			// console.log( _userColorList[n].id );
+			if( _userColorList[n].id == $id )
+			{
+				// console.log( n );
+				return n;
+			}
+		}
+	};
 	function _setBrowser()
 	{
 		var userAgent = navigator.userAgent.toLowerCase();

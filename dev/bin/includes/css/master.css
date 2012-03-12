@@ -56,11 +56,11 @@ body
 		width: 75px;
 		height: 15px;
 		cursor: pointer;
-		/*-webkit-border-radius:7px;*/
-		   /*-moz-border-radius:7px;*/
-		    /*-ms-border-radius:7px;*/
-		     /*-o-border-radius:7px;*/
-		        /*border-radius:7px;*/
+		-webkit-border-radius:2px;
+		   -moz-border-radius:2px;
+		    -ms-border-radius:2px;
+		     -o-border-radius:2px;
+		        border-radius:2px;
 	}
 #users
 {
@@ -84,7 +84,7 @@ body
 	float: left;
 	overflow: hidden;
 	/*padding: 10px;*/
-	/*cursor: pointer;*/
+	cursor: pointer;
 	-webkit-border-radius:5px;
 	   -moz-border-radius:5px;
 	    -ms-border-radius:5px;
@@ -116,13 +116,73 @@ body
 	height: 10px;
 	/*background-color: #DDD;*/
 }
-.color
+#change-color
+{
+	opacity: 0;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	/*margin: 15px 0px 0px 15px;*/
+	width: 175px;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #999;
+	-webkit-border-radius:5px;
+	   -moz-border-radius:5px;
+	    -ms-border-radius:5px;
+	     -o-border-radius:5px;
+	        border-radius:5px;
+    -webkit-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+       -moz-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+        -ms-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+         -o-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+            box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+    -webkit-transition: opacity .5s ease-out;
+       -moz-transition: opacity .5s ease-out;
+        -ms-transition: opacity .5s ease-out;
+         -o-transition: opacity .5s ease-out;
+           -transition: opacity .5s ease-out;
+	z-index: 20;
+}
+#change-color p
+{
+	text-align: center;
+	/*padding-top: 13px;*/
+	color: #333;
+	font-size: 20px;
+}
+#change-color #close
+{
+	color: #333;
+	font-size: 10px;
+	position: absolute;
+	top: 3px;
+	right: 7px;
+	cursor: pointer;
+}
+.color, .update-color
 {
 	float: left;
 	width:  10px;
 	height: 10px;
 	margin-right: 5px;
 	cursor: pointer;
+	-webkit-border-radius:2px;
+	   -moz-border-radius:2px;
+	    -ms-border-radius:2px;
+	     -o-border-radius:2px;
+	        border-radius:2px;
+}
+.update-color
+{
+	margin-top: 15px;
+	width:  30px;
+	height: 30px;
+	-webkit-border-radius:5px;
+	   -moz-border-radius:5px;
+	    -ms-border-radius:5px;
+	     -o-border-radius:5px;
+	        border-radius:5px;
 }
 .color.inactive
 {
@@ -130,11 +190,11 @@ body
 	opacity: .25;
 }
 
-#c-0{ background-color: #339900; }
-#c-1{ background-color: #006699; }
-#c-2{ background-color: #FFCC00; }
-#c-3{ background-color: #FF9900; }
-#c-4{ background-color: #CC0033; }
+#c-0, #u-0{ background-color: #339900; }
+#c-1, #u-1{ background-color: #006699; }
+#c-2, #u-2{ background-color: #FFCC00; }
+#c-3, #u-3{ background-color: #FF9900; }
+#c-4, #u-4{ background-color: #CC0033; }
 
 /* ISOTOPE */
 .isotope,
