@@ -18,6 +18,9 @@ var ProgramlandSecurity = new(function()
 	var _userColorList = [];
 	var _statusesInUse = [];
 	var _currentUserID;
+	var _hasCSSTransitions = false;
+	var _newGroupName = '';
+	var _eventName = '';
 	
 	var _colors = [ '#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033' ];
 	var _statuses = ["Free","A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
@@ -25,7 +28,25 @@ var ProgramlandSecurity = new(function()
 	this.init = function init()
 	{
 		_setBrowser();
+		_hasCSSTransitions = Modernizr.csstransitions;
 
+		if( _hasCSSTransitions )
+		{
+			if( jQuery.browser.chrome || jQuery.browser.safari )
+			{
+				_eventName = 'webkitTransitionEnd';
+			}else if( jQuery.browser.opera )
+			{
+				_eventName = 'oTransitionEnd';
+			}else if( jQuery.browser.firefox )
+			{
+				_eventName = 'transitionend';
+			}else if( jQuery.browser.msie )
+			{
+				_eventName = 'MSTransitionEnd';
+			}
+		}
+		
 		setTimeout( function(){ window.scrollTo( 0, 1 ); }, 100 );
 
 		$.getJSON( 'includes/php/getStatus.php?rt=json', _setStaff );
@@ -139,16 +160,22 @@ var ProgramlandSecurity = new(function()
 			animationEngine : 'best-available'
 		});
 
-		$( '#container' ).animate(
-			{ opacity: 1 },
-			{
-				duration: 1000,
-				specialEasing: { opacity: 'easeInSine' }, 
-				complete: function()
+		if( _hasCSSTransitions )
+		{
+			$( '#container' ).css( 'opacity', 1 );
+		}else
+		{
+			$( '#container' ).animate(
+				{ opacity: 1 },
 				{
+					duration: 1000,
+					specialEasing: { opacity: 'easeInSine' }, 
+					complete: function()
+					{
+					}
 				}
-			}
-		);
+			);
+		}
 
 		if( jQuery.browser.iphone )
 		{
@@ -223,27 +250,46 @@ var ProgramlandSecurity = new(function()
 
 	function _setGroupName( $name )
 	{
-		$( '#group-name' ).animate(
-			{ opacity: 0 },
-			{
-				duration: 500,
-				specialEasing: { opacity: 'easeInSine' }, 
-				complete: function()
+		if( _hasCSSTransitions )
+		{
+			_newGroupName = $name;
+			// setting last arg to true causes function to be called 2x
+			$( '#group-name' )[0].addEventListener( _eventName, _reanimateGroupName );
+			$( '#group-name' ).css( 'opacity', 0 );
+
+		}else
+		{
+			$( '#group-name' ).animate(
+				{ opacity: 0 },
 				{
-					$( this ).html( $name );
-					$( '#group-name' ).animate(
-						{ opacity: 1 },
-						{
-							duration: 500,
-							specialEasing: { opacity: 'easeInSine' }, 
-							complete: function()
+					duration: 1000,
+					specialEasing: { opacity: 'easeInSine' }, 
+					complete: function()
+					{
+						$( this ).html( $name );
+						$( '#group-name' ).animate(
+							{ opacity: 1 },
 							{
+								duration: 1000,
+								specialEasing: { opacity: 'easeInSine' }, 
+								complete: function()
+								{
+								}
 							}
-						}
-					);
+						);
+					}
 				}
-			}
-		);
+			);
+		}
+	};
+
+	function _reanimateGroupName( $evt )
+	{
+		// console.log( '_reanimateGroupName', $evt );
+		$evt.target.removeEventListener( _eventName, _reanimateGroupName );
+		$( '#group-name' ).html( _newGroupName );
+		$( '#group-name' ).css( 'opacity', 1 );
+		// _newGroupName = 'WTF'; // clearing this (or setting it to something else) will change it in the DOM ??
 	};
 
 	function _setActiveButtonByID( $id )
@@ -264,52 +310,6 @@ var ProgramlandSecurity = new(function()
 		
 		$( '#' + $id ).addClass( 'active' );
 	};
-
-	// function _animateUsersIn( $group )
-	// {
-	// 	for( var i = 0; i < $group.length; i++ )
-	// 	{
-	// 		var id = $group[i].id;
-	// 		if( $( '#user-' + id ).css( 'opacity' ) != 1 )
-	// 		{
-	// 			// console.log( 'IN >', $group[i].full_name );
-	// 			$( '#user-' + id ).css( 'boxShadow', '1px 1px 3px 2px rgba(0,0,0,0.2)' );
-	// 			$( '#user-' + id ).animate(
-	// 				{ opacity: 1 },
-	// 				{
-	// 					duration: 1000,
-	// 					specialEasing: { opacity: 'easeInSine' }, 
-	// 					complete: function()
-	// 					{
-	// 					}
-	// 				}
-	// 			);
-	// 		}
-	// 	}
-	// };
-
-	// function _animateUsersOut( $group )
-	// {
-	// 	for( var i = 0; i < $group.length; i++ )
-	// 	{
-	// 		var id = $group[i].id;
-	// 		if( $( '#user-' + id ).css( 'opacity' ) >= 0.1 )
-	// 		{
-	// 			// console.log( 'OUT >', $group[i].full_name );
-	// 			$( '#user-' + id ).animate(
-	// 				{ opacity: 0.1 },
-	// 				{
-	// 					duration: 1000,
-	// 					specialEasing: { opacity: 'easeInSine' }, 
-	// 					complete: function()
-	// 					{
-	// 						$( this ).css( 'boxShadow', '0px 0px 0px 0px rgba(0,0,0,0)' );
-	// 					}
-	// 				}
-	// 			);
-	// 		}
-	// 	}
-	// };
 
 	/**
 	 * sorts the user list based on the users last name
@@ -365,18 +365,25 @@ var ProgramlandSecurity = new(function()
 		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
 		// todo: update all opacity animations to use CSS transitions or jQuery
 		$( '#change-color p' ).html( name );
-		$( '#change-color' ).css( {left: $evt.pageX, top: $evt.pageY, opacity: 1} );
+		if( _hasCSSTransitions )
+		{
+			$( '#change-color' ).css( {left: $evt.pageX, top: $evt.pageY, opacity: 1} );
+		}else
+		{
+			$( '#change-color' ).css( {left: $evt.pageX, top: $evt.pageY} );
+			$( '#change-color' ).animate(
+				{ opacity: 1 },
+				{
+					duration: 500,
+					specialEasing: { opacity: 'easeInSine' }, 
+					complete: function()
+					{
+					}
+				}
+			);
+		}
+		
 		_stopShow();
-		// $( '#change-color' ).animate(
-		// 	{ opacity: 1 },
-		// 	{
-		// 		duration: 250,
-		// 		specialEasing: { opacity: 'easeInSine' }, 
-		// 		complete: function()
-		// 		{
-		// 		}
-		// 	}
-		// );
 
 	};
 
@@ -391,7 +398,6 @@ var ProgramlandSecurity = new(function()
 				{ action: 'update', name: name, status: newStatus },
 				function( $data )
 				{
-					console.log( $data.success );
 					if( $data.success )
 					{
 						_updateStaff( $data );
