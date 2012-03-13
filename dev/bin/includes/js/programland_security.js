@@ -42,7 +42,7 @@ $(document).ready(
 		var _allLists			= [];
 		
 		var _colors = ['#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033'];
-		var _statuses = ["Free", "A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
+		var _statuses = ["Free", "A Little Workload", "Pretty Crazy", "Insane", "Leave Me the Fuck Alone" ];
 		
 		init();
 
