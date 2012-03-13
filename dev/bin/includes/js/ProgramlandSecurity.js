@@ -20,37 +20,68 @@ var ProgramlandSecurity = new(function()
 	var _currentUserID;
 	var _hasCSSTransitions = false;
 	var _newGroupName = '';
-	var _eventName = '';
+	var _transEndEventName = '';
 	
-	var _colors = [ '#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033' ];
-	var _statuses = ["Free","A Little Workload", "Pretty Crazy", "Insane", "Leave me the fuck alone" ];
+	var _colors = [ '#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033', '#DCDCDC' ];
+	var _statuses = [ "Free","A Little Workload", "Pretty Crazy", "Insane", "Leave Me the Fuck Alone", "Out of Office" ];
 
 	this.init = function init()
 	{
 		_setBrowser();
 		_hasCSSTransitions = Modernizr.csstransitions;
 
-		if( _hasCSSTransitions )
-		{
-			if( jQuery.browser.chrome || jQuery.browser.safari )
-			{
-				_eventName = 'webkitTransitionEnd';
-			}else if( jQuery.browser.opera )
-			{
-				_eventName = 'oTransitionEnd';
-			}else if( jQuery.browser.firefox )
-			{
-				_eventName = 'transitionend';
-			}else if( jQuery.browser.msie )
-			{
-				_eventName = 'MSTransitionEnd';
-			}
-		}
+		var transEndEventNames = {
+			'WebkitTransition' : 'webkitTransitionEnd',
+			'MozTransition'    : 'transitionend',
+			'OTransition'      : 'oTransitionEnd',
+			'msTransition'     : 'MSTransitionEnd',
+			'transition'       : 'transitionend'
+		};
+		_transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
 		
 		setTimeout( function(){ window.scrollTo( 0, 1 ); }, 100 );
 
 		$.getJSON( 'includes/php/getStatus.php?rt=json', _setStaff );
 		_poll = setInterval( _onUpdateUserStatus, _pollInterval );
+	};
+
+	function _search( $event )
+	{
+		if( _running )
+		{
+			_stopShow();
+		}
+
+		if( _catButtonIsActive() )
+		{
+			_removeActiveButton();
+		}
+
+		var searchterm = $( 'input' ).val().toLowerCase();
+		var filter_items = [];
+
+		$( '.user' ).each(
+			function()
+			{
+				var username = $( this ).find( 'p' ).text().toLowerCase();
+
+				if ( username.indexOf( searchterm ) !== -1 )
+				{
+					filter_items.push( '#' + $( this ).attr( 'id' ) );
+				}
+			}
+		);
+
+		if( filter_items.length )
+		{
+			var filter_string = filter_items.join( ', ' );
+
+			// console.log( filter_string, $( filter_string ) );
+
+			$( '#users' ).isotope( { filter: filter_string } );
+		}
+
+		$( '#group-name' ).html( 'search: ' + searchterm );
 	};
 
 	function _setStaff( $data )
@@ -132,21 +163,21 @@ var ProgramlandSecurity = new(function()
 
 		_updateStatusButtons();
 
-		$( '.btn' ).click( _btnClickHandler );
+		$( '.btn' ).click( _categoryClickHandler );
 		_addMouseOver( $( '.btn' ) );
 
 		$( '.user' ).click( _userClickHandler );
 		$( '.color' ).click( _colorClickHandler );
 		$( '.update-color' ).click( _updateColorClickHandler );
 		$( '#change-color #close' ).click( _onCloseColorHandler );
-		// $( 'body' ).click(function()
-		// {
-		// 	console.log( '>>>' );
-		// 	if( $( '#change-color' ).css( 'opacity' ) )
-		// 	{
-		// 		$( '#change-color' ).css( {opacity: 0} );
-		// 	}
-		// })
+
+		$( 'input' ).focus(
+			function()
+			{
+				$( 'input' ).val( '' );
+			}
+		);
+		$( 'input' ).keyup( _search );
 
 		$( '#nav' ).isotope({
 			itemSelector: '.btn',
@@ -245,7 +276,7 @@ var ProgramlandSecurity = new(function()
 		_setGroupName( _allLists[i].name );
 		_setActiveButtonByID( _allLists[i].id );
 		var selector = _allLists[i].filter;
-		$( '#users' ).isotope({ filter: selector });
+		$( '#users' ).isotope( { filter: selector } );
 	};
 
 	function _setGroupName( $name )
@@ -254,7 +285,7 @@ var ProgramlandSecurity = new(function()
 		{
 			_newGroupName = $name;
 			// setting last arg to true causes function to be called 2x
-			$( '#group-name' )[0].addEventListener( _eventName, _reanimateGroupName );
+			$( '#group-name' )[0].addEventListener( _transEndEventName, _reanimateGroupName );
 			$( '#group-name' ).css( 'opacity', 0 );
 
 		}else
@@ -286,7 +317,7 @@ var ProgramlandSecurity = new(function()
 	function _reanimateGroupName( $evt )
 	{
 		// console.log( '_reanimateGroupName', $evt );
-		$evt.target.removeEventListener( _eventName, _reanimateGroupName );
+		$evt.target.removeEventListener( _transEndEventName, _reanimateGroupName );
 		$( '#group-name' ).html( _newGroupName );
 		$( '#group-name' ).css( 'opacity', 1 );
 		// _newGroupName = 'WTF'; // clearing this (or setting it to something else) will change it in the DOM ??
@@ -294,11 +325,7 @@ var ProgramlandSecurity = new(function()
 
 	function _setActiveButtonByID( $id )
 	{
-		for( var i = _allLists.length - 1; i >= 0; i-- )
-		{
-			$( '#' + _allLists[i].id ).css( 'background-color', '' );
-			$( '#' + _allLists[i].id ).removeClass( 'active' );
-		}
+		_removeActiveButton();
 
 		if( jQuery.browser.iphone )
 		{
@@ -355,6 +382,8 @@ var ProgramlandSecurity = new(function()
 
 	function _userClickHandler( $evt )
 	{
+		$( 'input' ).val( '' );
+
 		var id = $( $evt.target ).attr( 'id' );
 		if( ! id )
 		{
@@ -367,10 +396,12 @@ var ProgramlandSecurity = new(function()
 		$( '#change-color p' ).html( name );
 		if( _hasCSSTransitions )
 		{
+			$( '#change-color' ).addClass( 'active' );
 			$( '#change-color' ).css( {left: $evt.pageX, top: $evt.pageY, opacity: 1} );
 		}else
 		{
 			$( '#change-color' ).css( {left: $evt.pageX, top: $evt.pageY} );
+			$( '#change-color' ).addClass( 'active' );
 			$( '#change-color' ).animate(
 				{ opacity: 1 },
 				{
@@ -405,7 +436,8 @@ var ProgramlandSecurity = new(function()
 					{
 						console.log( 'error' );
 					}
-					$( '#change-color' ).css( 'opacity', 0 );
+					// $( '#change-color' ).css( 'opacity', 0 );
+					_onCloseColorHandler( $evt );
 				},
 				"json"
 			);
@@ -414,20 +446,51 @@ var ProgramlandSecurity = new(function()
 
 	function _onCloseColorHandler( $evt )
 	{
-		$( '#change-color' ).css( 'opacity', 0 );
+		// $( '#change-color' ).css( 'opacity', 0 );
+		// $( '#change-color' ).removeClass( 'active' );
+		if( _hasCSSTransitions )
+		{
+			$( '#change-color' ).removeClass( 'active' );
+			$( '#change-color' )[0].addEventListener( _transEndEventName, _moveColorChange );
+			$( '#change-color' ).css( 'opacity', 0 );
+		}else
+		{
+			$( '#change-color' ).removeClass( 'active' );
+			$( '#change-color' ).css( {top: '-500px'} );
+			$( '#change-color' ).animate(
+				{ opacity: 0 },
+				{
+					duration: 500,
+					specialEasing: { opacity: 'easeInSine' }, 
+					complete: function()
+					{
+					}
+				}
+			);
+		}
 	};
+
+	function _moveColorChange( $evt )
+	{
+		$evt.target.removeEventListener( _transEndEventName, _moveColorChange );
+		$( '#change-color' ).css( {top: '-500px'} );
+	};
+
 	function _colorClickHandler( $evt )
 	{
+		$( 'input' ).val( '' );
+
+		// sk: check to see if the color I've clicked on is in use
+		// TODO: use a class
 		if( _statusesInUse.indexOf( $evt.target.id.split( '-' )[1] ) != -1 )
 		{
-			_stopShow();
-
-			// remove active button
-			for( var i = _allLists.length - 1; i >= 0; i-- )
+			if( $( '#change-color' ).hasClass( 'active' ) )
 			{
-				$( '#' + _allLists[i].id ).css( 'background-color', '' );
-				$( '#' + _allLists[i].id ).removeClass( 'active' );
+				_onCloseColorHandler( $evt );
 			}
+
+			_stopShow();
+			_removeActiveButton();
 
 			var selector = $( $evt.target ).attr( 'data-filter' );
 			if( ! selector )
@@ -436,12 +499,40 @@ var ProgramlandSecurity = new(function()
 			}
 			// console.log( selector );
 			_setGroupName( _statuses[selector.split( '-' )[1]] );
-			$( '#users' ).isotope({ filter: selector });
+			$( '#users' ).isotope( { filter: selector } );
 		}
 	};
 
-	function _btnClickHandler( $evt )
+	function _removeActiveButton()
 	{
+		for( var i = _allLists.length - 1; i >= 0; i-- )
+		{
+			$( '#' + _allLists[i].id ).css( 'background-color', '' );
+			$( '#' + _allLists[i].id ).removeClass( 'active' );
+		}
+	};
+
+	function _catButtonIsActive()
+	{
+		for( var i = _allLists.length - 1; i >= 0; i-- )
+		{
+			if( $( '#' + _allLists[i].id ).hasClass( 'active' ) )
+			{
+				return true;
+			}
+		}
+		return false;
+	};
+
+	function _categoryClickHandler( $evt )
+	{
+		$( 'input' ).val( '' );
+
+		if( $( '#change-color' ).hasClass( 'active' ) )
+		{
+			_onCloseColorHandler( $evt );
+		}
+
 		// console.log( $evt.target.id );
 		if( $evt.target.id == 'o' )
 		{
@@ -458,7 +549,7 @@ var ProgramlandSecurity = new(function()
 		_stopShow();
 		
 		var selector = $( $evt.target ).attr( 'data-filter' );
-		$( '#users' ).isotope({ filter: selector });
+		$( '#users' ).isotope( { filter: selector } );
 		_setActiveButtonByID( $evt.target.id );
 
 		for( var i = _allLists.length - 1; i >= 0; i-- )
@@ -509,7 +600,7 @@ var ProgramlandSecurity = new(function()
 	function _updateStatusButtons()
 	{
 		_statusesInUse = _statusesInUse.unique();
-		for( var i = 4; i >= 0; i-- )
+		for( var i = _colors.length - 1; i >= 0; i-- )
 		{
 			$( '#c-' + i ).addClass( 'inactive' );
 		}

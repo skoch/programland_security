@@ -120,7 +120,7 @@ body
 #colors
 {
 	margin: 15px 0px 0px 15px;
-	width: 75px;
+	width: 90px;
 	height: 10px;
 	/*background-color: #DDD;*/
 }
@@ -128,11 +128,11 @@ body
 {
 	opacity: 0;
 	position: absolute;
-	top: 0px;
+	top: -500px;
 	left: 0px;
 	/*margin: 15px 0px 0px 15px;*/
-	width: 175px;
-	padding: 20px;
+	width: 150px;
+	padding: 15px;
 	background-color: #fff;
 	border: 1px solid #999;
 	-webkit-border-radius:5px;
@@ -145,11 +145,11 @@ body
         -ms-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
          -o-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
             box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
-    -webkit-transition: opacity .5s ease-out;
-       -moz-transition: opacity .5s ease-out;
-        -ms-transition: opacity .5s ease-out;
-         -o-transition: opacity .5s ease-out;
-           -transition: opacity .5s ease-out;
+    -webkit-transition: opacity .25s ease-out;
+       -moz-transition: opacity .25s ease-out;
+        -ms-transition: opacity .25s ease-out;
+         -o-transition: opacity .25s ease-out;
+           -transition: opacity .25s ease-out;
 	z-index: 20;
 }
 #change-color p
@@ -183,14 +183,23 @@ body
 }
 .update-color
 {
+	float: none;
 	margin-top: 15px;
-	width:  30px;
-	height: 30px;
+	width:  150px;
+	height: 25px;
+	font-size: 12px;
+	text-align: center;
+	padding-top: 10px;
 	-webkit-border-radius:5px;
 	   -moz-border-radius:5px;
 	    -ms-border-radius:5px;
 	     -o-border-radius:5px;
 	        border-radius:5px;
+    -webkit-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+       -moz-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+        -ms-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+         -o-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+            box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
 }
 .color.inactive
 {
@@ -203,16 +212,36 @@ body
 #c-2, #u-2{ background-color: #FFCC00; }
 #c-3, #u-3{ background-color: #FF9900; }
 #c-4, #u-4{ background-color: #CC0033; }
+#c-5, #u-5{ background-color: #DCDCDC; }
 
+input
+{
+	/*float: right;*/
+	font-family: 'Doppio One', sans-serif;
+	font-size: 15px;
+	margin: 15px 0px 0px 10px;
+	padding: 2px 5px 2px 5px;
+	border: 1px solid #999;
+	-webkit-border-radius:5px;
+	   -moz-border-radius:5px;
+	    -ms-border-radius:5px;
+	     -o-border-radius:5px;
+	        border-radius:5px;
+	-webkit-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+	   -moz-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+	    -ms-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+	     -o-box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+	        box-shadow:1px 1px 2px 1px rgba(0,0,0,0.2);
+}
 /* ISOTOPE */
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */
-  -webkit-transition-duration: 1s;
-     -moz-transition-duration: 1s;
-      -ms-transition-duration: 1s;
-       -o-transition-duration: 1s;
-          transition-duration: 1s;
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
 }
 
 .isotope {
