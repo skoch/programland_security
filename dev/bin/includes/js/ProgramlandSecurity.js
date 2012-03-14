@@ -43,6 +43,7 @@ var ProgramlandSecurity = new(function()
 
 		$.getJSON( 'includes/php/getStatus.php?rt=json', _setStaff );
 		_poll = setInterval( _onUpdateUserStatus, _pollInterval );
+
 	};
 
 	function _search( $event )
@@ -215,7 +216,9 @@ var ProgramlandSecurity = new(function()
 		{
 			_startShow();
 		}
-		
+
+		// humane.clickToClose = true;
+
 		// _onChangeView();
 		// $( '#users' ).isotope({ filter: '.technology' });
 		// _setActiveButtonByID( 'coders' );
@@ -392,6 +395,7 @@ var ProgramlandSecurity = new(function()
 		// console.log( '_userClickHandler', id );
 		_currentUserID = id;
 		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
+
 		// todo: update all opacity animations to use CSS transitions or jQuery
 		$( '#change-color p' ).html( name );
 		if( _hasCSSTransitions )
@@ -431,10 +435,12 @@ var ProgramlandSecurity = new(function()
 				{
 					if( $data.success )
 					{
+						humane.success( name + "'s' status has been updated." );
 						_updateStaff( $data );
 					}else
 					{
-						console.log( 'error' );
+						// console.log( 'error' );
+						humane.error( "There was an error, sorry." );
 					}
 					// $( '#change-color' ).css( 'opacity', 0 );
 					_onCloseColorHandler( $evt );
