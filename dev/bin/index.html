@@ -4,6 +4,7 @@
 		<title>Programland Security</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" media="screen" href="includes/css/humane-jackedup.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/css/master.css" />
 		<!-- <link rel="stylesheet/less" type="text/css" href="includes/less/master.less"> -->
 		<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
@@ -19,25 +20,22 @@
 		<script type="text/javascript">
 			// Modernizr.load({
 			yepnope({
-				test: false,
-				nope: ['includes/js/jquery.min.js', 'includes/js/jquery.easing.js'],
-				load: {
-					// 'less': 'includes/js/less-1.3.0.min.js',
-					'jq': 'includes/js/jquery.min.js',
-					// 'ease': 'includes/js/jquery.easing.js',
-					'isotope': 'includes/js/jquery.isotope.min.js',
-					'main': 'includes/js/ProgramlandSecurity.js'
-				},
+				test: Modernizr.csstransitions,
+				nope: [
+					'includes/js/jquery.min.js',
+					'includes/js/jquery.easing.js'
+				],
+				load: [
+					'includes/js/humane.min.js',
+					'includes/js/jquery.min.js',
+					'includes/js/jquery.isotope.min.js',
+					'includes/js/ProgramlandSecurity.js'
+				],
 				complete: function()
 				{
-					// console.log( 'Everything loaded' );
 					ProgramlandSecurity.init();
 				}
 			});
-			// $(document).ready(function()
-			// 	{
-			// 		ProgramlandSecurity.init();
-			// 	});
 		</script>
 </head>
 <body>
