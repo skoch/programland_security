@@ -1,3 +1,6 @@
+<?php 
+	define( 'IS_DEV', true );
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,7 +23,10 @@
 					// 'includes/js/humane.min.js',
 					'includes/js/jquery.min.js',
 					'includes/js/jquery.isotope.min.js',
-					'includes/js/ProgramlandSecurity.js'
+					<?php if( IS_DEV ): ?>'includes/js/ProgramlandSecurity.js'
+					<?php else: ?>'includes/js/ProgramlandSecurity.min.js'
+					<?php endif; ?>
+
 				],
 				complete: function()
 				{
