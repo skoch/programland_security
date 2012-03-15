@@ -138,7 +138,9 @@ var ProgramlandSecurity = new(function()
 				+ '" data-filter=".status-' + _users[i].status + '"><p>'
 				+ name + '</p></div>'
 			);
-			$( '#user-' + i ).css( {backgroundColor: _colors[_users[i].status]} );
+			
+			// sk: why was I ever setting this? just use a CSS class, dummy!
+			// $( '#user-' + i ).css( 'background', _colors[_users[i].status] );
 
 			// _users[i].id = i;
 			// _userColorList[name] = {
@@ -251,7 +253,7 @@ var ProgramlandSecurity = new(function()
 						// user.css( '-o-transition', 'background-color .5s linear' );
 						// user.css( 'transition', 'background-color .5s linear' );
 
-						user.css( 'background-color', _colors[$data.users[ii].status] );
+						// user.css( 'background-color', _colors[$data.users[ii].status] );
 						user.attr( 'data-filter', '.status-' + $data.users[ii].status );
 						user.removeClass( 'status-' + _userColorList[n].status );
 						user.addClass( 'status-' + $data.users[ii].status );
@@ -435,12 +437,13 @@ var ProgramlandSecurity = new(function()
 				{
 					if( $data.success )
 					{
-						humane.success( name + "'s' status has been updated." );
+						// humane.success( name + "'s' status has been updated." );
+						// humane.error( "There was an error, sorry." );
 						_updateStaff( $data );
 					}else
 					{
 						// console.log( 'error' );
-						humane.error( "There was an error, sorry." );
+						// humane.error( "There was an error, sorry." );
 					}
 					// $( '#change-color' ).css( 'opacity', 0 );
 					_onCloseColorHandler( $evt );
