@@ -13,7 +13,7 @@
 
 		$staff_collection->update(
 			array(
-				"full_name" => $user['full_name']
+				"full_name" => $user["full_name"]
 			),
 			array( '$set' => array(
 					'status' => $status
