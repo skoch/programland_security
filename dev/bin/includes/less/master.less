@@ -121,15 +121,21 @@ html, body
 	cursor: pointer;
 	.borderRadius( 5px );
 	.box-shadow();
+
+	p
+	{
+		text-align: center;
+		padding-top: 5px;
+		font-size: 20px;
+		text-shadow: 0 -1px 1px rgba(0,0,0,0.35);
+
+		span
+		{
+			font-size: 12px;
+		}
+	}
 }
 
-.user p
-{
-	text-align: center;
-	padding-top: 13px;
-	font-size: 20px;
-	text-shadow: 0 -1px 1px rgba(0,0,0,0.35);
-}
 /*#footer
 {
 	height: 50px;
@@ -150,7 +156,7 @@ html, body
 	top: -500px;
 	left: 0px;
 	/*margin: 15px 0px 0px 15px;*/
-	width: 150px;
+	width: 250px;
 	padding: 15px;
 	background-color: #fff;
 	border: 1px solid #999;
@@ -194,13 +200,14 @@ html, body
 {
 	float: none;
 	margin-top: 15px;
-	width:  150px;
+	width:  250px;
 	height: 25px;
-	font-size: 12px;
+	font-size: 16px;
 	text-align: center;
 	padding-top: 10px;
 	.borderRadius( 5px );
 	.box-shadow();
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.35);
 }
 .color.inactive
 {
@@ -225,6 +232,13 @@ input
 	border: 1px solid #999;
 	.borderRadius( 5px );
 	.box-shadow();
+}
+#search{ width: 200px; }
+#working-on
+{
+	width: 235px;
+	margin: 20px 0 10px 0;
+	text-align: center;
 }
 /* ISOTOPE */
 .isotope,

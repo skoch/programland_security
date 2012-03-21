@@ -1,6 +1,6 @@
 <?php
 
-	$STATUS_TEXT = array( "Free", "A Little Workload", "Pretty Crazy", "Insane", "Leave Me the Fuck Alone", "Out of Office" );
+	$STATUS_TEXT = array( "Free","Slightly Busy", "Busy", "Out of Office" );
 
 	$header = "";
 	$success = false;
@@ -10,7 +10,7 @@
 		$mongo  = new Mongo();
 		$db = $mongo->big_spaceship;
 		$staff_collection = $db->staff;
-		
+
 		if( $_POST["action"] == "login" )
 		{
 			$cursor = $staff_collection->find( array( 'full_name' => $_POST['username'] ) );
@@ -44,17 +44,17 @@
 				),
 				array( '$set' => array(
 						'status' => $status
-					)	
+					)
 				)
 			);
 
 			$success = true;
-			$header = "Updated";				
+			$header = "Updated";
 			$action = "update";
 
 		}
 	}
-	
+
 	if( $success )
 	{
 		$curStatus = $STATUS_TEXT[$status];
@@ -80,11 +80,11 @@
 
 					Status: <select name="status">
 $optionHTML
-							</select>					
+							</select>
 					<input type="submit">
 				</form>
 			</body>
-		</html>	
+		</html>
 EOF;
 	}
 	else
@@ -98,11 +98,11 @@ EOF;
 				<form action="editStatus.php" method="POST">
 					<input type="hidden" name="action" value="$action">
 					User: <input type="text" name="username"><br />
-					Pass: <input type="password" name="password"><br />						
+					Pass: <input type="password" name="password"><br />
 					<input type="submit">
 				</form>
 			</body>
-		</html>	
+		</html>
 EOF;
 	}
 

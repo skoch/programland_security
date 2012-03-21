@@ -21,9 +21,9 @@ var ProgramlandSecurity = new(function()
 	var _hasCSSTransitions = false;
 	var _newGroupName = '';
 	var _transEndEventName = '';
-	
-	var _colors = [ '#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033', '#DCDCDC' ];
-	var _statuses = [ "Free","A Little Workload", "Pretty Crazy", "Insane", "Leave Me the Fuck Alone", "Out of Office" ];
+
+	var _colors = [ '#339900', '#FFCC00',, '#CC0033', '#DCDCDC' ];
+	var _statuses = [ "Free","Slightly Busy", "Busy", "Out of Office" ];
 
 	this.init = function init()
 	{
@@ -38,7 +38,7 @@ var ProgramlandSecurity = new(function()
 			'transition'       : 'transitionend'
 		};
 		_transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
-		
+
 		setTimeout( function(){ window.scrollTo( 0, 1 ); }, 100 );
 
 		$.getJSON( 'includes/php/getStatus.php?rt=json', _setStaff );
@@ -46,7 +46,7 @@ var ProgramlandSecurity = new(function()
 
 	};
 
-	function _search( $event )
+	function _search( $evt )
 	{
 		if( _running )
 		{
@@ -58,7 +58,7 @@ var ProgramlandSecurity = new(function()
 			_removeActiveButton();
 		}
 
-		var searchterm = $( 'input' ).val().toLowerCase();
+		var searchterm = $( '#search' ).val().toLowerCase();
 		var filter_items = [];
 
 		$( '.user' ).each(
@@ -95,6 +95,7 @@ var ProgramlandSecurity = new(function()
 			// {'name': "Big Spaceship", 'id': 'all', 'filter': '.'},
 			{'name': "Core", 'id': 'core', 'filter': '.core'},
 			{'name': "Producers", 'id': 'producers', 'filter': '.producers'},
+			{'name': "Engagement", 'id': 'engagement', 'filter': '.engagement'},
 			{'name': "Strategy", 'id': 'strategy', 'filter': '.strategy'},
 			{'name': "Technology", 'id': 'technology', 'filter': '.technology'},
 			{'name': "Designers", 'id': 'designers', 'filter': '.designers'},
@@ -128,6 +129,7 @@ var ProgramlandSecurity = new(function()
 			// var x = ( ( _boxWidth ) + 10 ) * ( i % 5 );
 			// var y = ( ( _boxHeight ) + 10 ) * parseInt( i / 5 );
 			var name = _users[i].full_name;
+			var project = _users[i].current_project || "Totally free!";
 			if( jQuery.browser.iphone )
 			{
 				var pieces = _users[i].full_name.split( ' ' );
@@ -136,17 +138,18 @@ var ProgramlandSecurity = new(function()
 			$( '#users' ).append( '<div class="user ' + filters
 				+ '" id="user-' + i
 				+ '" data-filter=".status-' + _users[i].status + '"><p>'
-				+ name + '</p></div>'
+				+ name + '<br><span>' + project + '</span></p></div>'
 			);
-			
+
 			// sk: why was I ever setting this? just use a CSS class, dummy!
 			// $( '#user-' + i ).css( 'background', _colors[_users[i].status] );
 
 			// _users[i].id = i;
 			// _userColorList[name] = {
 			_userColorList[_users[i].full_name] = {
-				'id': i, 
+				'id': i,
 				'status': _users[i].status,
+				'project': _users[i].current_project,
 				'color': _colors[_users[i].status]
 			};
 
@@ -174,13 +177,14 @@ var ProgramlandSecurity = new(function()
 		$( '.update-color' ).click( _updateColorClickHandler );
 		$( '#change-color #close' ).click( _onCloseColorHandler );
 
-		$( 'input' ).focus(
+		$( '#search' ).focus(
 			function()
 			{
-				$( 'input' ).val( '' );
+				$( '#search' ).val( '' );
 			}
 		);
-		$( 'input' ).keyup( _search );
+		$( '#search' ).keyup( _search );
+		$( '#working-on' ).keyup( _sendNewUserData );
 
 		$( '#nav' ).isotope({
 			itemSelector: '.btn',
@@ -203,7 +207,7 @@ var ProgramlandSecurity = new(function()
 				{ opacity: 1 },
 				{
 					duration: 1000,
-					specialEasing: { opacity: 'easeInSine' }, 
+					specialEasing: { opacity: 'easeInSine' },
 					complete: function()
 					{
 					}
@@ -239,13 +243,16 @@ var ProgramlandSecurity = new(function()
 					var pieces = $data.users[ii].full_name.split( ' ' );
 					name = pieces[0].charAt( 0 ) + '. ' + pieces[pieces.length - 1];
 				}
-				
+
 				_statusesInUse.push( $data.users[ii].status );
 
 				if( name == n )
 				{
-					if( _userColorList[n].color != _colors[$data.users[ii].status] )
+					if( _userColorList[n].color != _colors[$data.users[ii].status] ||
+						_userColorList[n].project != $data.users[ii].current_project
+					)
 					{
+						console.log( 'new project', $data.users[ii].current_project );
 						var user = $( '#user-' + _userColorList[n].id );
 						// user.css( '-webkit-transition', 'background-color .5s linear' );
 						// user.css( '-moz-transition', 'background-color .5s linear' );
@@ -257,9 +264,11 @@ var ProgramlandSecurity = new(function()
 						user.attr( 'data-filter', '.status-' + $data.users[ii].status );
 						user.removeClass( 'status-' + _userColorList[n].status );
 						user.addClass( 'status-' + $data.users[ii].status );
+						$( '#user-' + _userColorList[n].id + ' span' ).html( $data.users[ii].current_project );
 
 						_userColorList[n].color = _colors[$data.users[ii].status];
 						_userColorList[n].status = $data.users[ii].status;
+						_userColorList[n].project = $data.users[ii].current_project;
 					}
 
 					break;
@@ -299,7 +308,7 @@ var ProgramlandSecurity = new(function()
 				{ opacity: 0 },
 				{
 					duration: 1000,
-					specialEasing: { opacity: 'easeInSine' }, 
+					specialEasing: { opacity: 'easeInSine' },
 					complete: function()
 					{
 						$( this ).html( $name );
@@ -307,7 +316,7 @@ var ProgramlandSecurity = new(function()
 							{ opacity: 1 },
 							{
 								duration: 1000,
-								specialEasing: { opacity: 'easeInSine' }, 
+								specialEasing: { opacity: 'easeInSine' },
 								complete: function()
 								{
 								}
@@ -339,7 +348,7 @@ var ProgramlandSecurity = new(function()
 		{
 			$( '#' + $id ).css( 'background-color', '#f9f9f9' );
 		}
-		
+
 		$( '#' + $id ).addClass( 'active' );
 	};
 
@@ -376,7 +385,7 @@ var ProgramlandSecurity = new(function()
 	{
 		$el.mouseover(function()
 		{
-			$( this ).css( 'background-color', '#f9f9f9' );			
+			$( this ).css( 'background-color', '#f9f9f9' );
 		}).mouseout(function(){
 			if( ! $( this ).hasClass( 'active' ) )
 			{
@@ -387,7 +396,7 @@ var ProgramlandSecurity = new(function()
 
 	function _userClickHandler( $evt )
 	{
-		$( 'input' ).val( '' );
+		$( '#search' ).val( '' );
 
 		var id = $( $evt.target ).attr( 'id' );
 		if( ! id )
@@ -397,9 +406,11 @@ var ProgramlandSecurity = new(function()
 		// console.log( '_userClickHandler', id );
 		_currentUserID = id;
 		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
+		var project = _getProjectFromID( _currentUserID.split( '-' )[1] );
 
 		// todo: update all opacity animations to use CSS transitions or jQuery
 		$( '#change-color p' ).html( name );
+		$( '#working-on' ).val( project );
 		if( _hasCSSTransitions )
 		{
 			$( '#change-color' ).addClass( 'active' );
@@ -412,14 +423,14 @@ var ProgramlandSecurity = new(function()
 				{ opacity: 1 },
 				{
 					duration: 500,
-					specialEasing: { opacity: 'easeInSine' }, 
+					specialEasing: { opacity: 'easeInSine' },
 					complete: function()
 					{
 					}
 				}
 			);
 		}
-		
+
 		_stopShow();
 
 	};
@@ -430,9 +441,10 @@ var ProgramlandSecurity = new(function()
 		{
 			var name = _getNameFromID( _currentUserID.split( '-' )[1] );
 			var newStatus = $evt.target.id.split( '-' )[1];
+			var newProject = $( '#working-on' ).val();
 			$.post(
 				'includes/php/updateStatus.php',
-				{ action: 'update', name: name, status: newStatus },
+				{ action: 'update', name: name, status: newStatus, project: newProject },
 				function( $data )
 				{
 					if( $data.success )
@@ -442,7 +454,7 @@ var ProgramlandSecurity = new(function()
 						_updateStaff( $data );
 					}else
 					{
-						// console.log( 'error' );
+						console.log( 'error' );
 						// humane.error( "There was an error, sorry." );
 					}
 					// $( '#change-color' ).css( 'opacity', 0 );
@@ -450,6 +462,41 @@ var ProgramlandSecurity = new(function()
 				},
 				"json"
 			);
+		}
+	};
+
+	function _sendNewUserData( $evt )
+	{
+		if( $evt.keyCode == '13' )// ENTER
+		{
+			if( _currentUserID )
+			{
+				var name = _getNameFromID( _currentUserID.split( '-' )[1] );
+				var newProject = $( '#working-on' ).val();
+				$.post(
+					'includes/php/updateStatus.php',
+					{ action: 'update', name: name, project: newProject },
+					function( $data )
+					{
+						console.log( $data.success );
+						if( $data.success )
+						{
+							// humane.success( name + "'s' status has been updated." );
+							// humane.error( "There was an error, sorry." );
+							_updateStaff( $data );
+							// $( '#working-on' ).val( '' );
+						}else
+						{
+							console.log( 'error' );
+							// humane.error( "There was an error, sorry." );
+						}
+						// $( '#change-color' ).css( 'opacity', 0 );
+						_onCloseColorHandler( $evt );
+					},
+					"json"
+				);
+				// $evt.preventDefault();
+			}
 		}
 	};
 
@@ -470,7 +517,7 @@ var ProgramlandSecurity = new(function()
 				{ opacity: 0 },
 				{
 					duration: 500,
-					specialEasing: { opacity: 'easeInSine' }, 
+					specialEasing: { opacity: 'easeInSine' },
 					complete: function()
 					{
 					}
@@ -487,7 +534,7 @@ var ProgramlandSecurity = new(function()
 
 	function _colorClickHandler( $evt )
 	{
-		$( 'input' ).val( '' );
+		$( '#search' ).val( '' );
 
 		// sk: check to see if the color I've clicked on is in use
 		// TODO: use a class
@@ -535,7 +582,7 @@ var ProgramlandSecurity = new(function()
 
 	function _categoryClickHandler( $evt )
 	{
-		$( 'input' ).val( '' );
+		$( '#search' ).val( '' );
 
 		if( $( '#change-color' ).hasClass( 'active' ) )
 		{
@@ -554,9 +601,9 @@ var ProgramlandSecurity = new(function()
 			}
 			return;
 		}
-		
+
 		_stopShow();
-		
+
 		var selector = $( $evt.target ).attr( 'data-filter' );
 		$( '#users' ).isotope( { filter: selector } );
 		_setActiveButtonByID( $evt.target.id );
@@ -633,6 +680,19 @@ var ProgramlandSecurity = new(function()
 			}
 		}
 	};
+
+	function _getProjectFromID( $id )
+	{
+		for( var n in _userColorList )
+		{
+			// console.log( _userColorList[n].id );
+			if( _userColorList[n].id == $id )
+			{
+				return _userColorList[n].project;
+			}
+		}
+	};
+
 	function _setBrowser()
 	{
 		var userAgent = navigator.userAgent.toLowerCase();
@@ -640,7 +700,7 @@ var ProgramlandSecurity = new(function()
 
 		// Figure out what browser is being used
 		jQuery.browser = {
-			
+
 			version: (userAgent.match( /.+(?:rv|it|ra|ie|me|ve)[\/: ]([\d.]+)/ ) || [])[1],
 
 			chrome: /chrome/.test( userAgent ),

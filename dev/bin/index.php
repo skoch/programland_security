@@ -1,4 +1,4 @@
-<?php 
+<?php
 	define( 'IS_DEV', true );
 ?>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/css/master.css" />
 		<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
-		
+
 		<script type="text/javascript" src="includes/js/modernizr.custom.js"></script>
 		<script type="text/javascript">
 			Modernizr.load({
@@ -42,6 +42,7 @@
 			<div id="nav">
 				<div class="btn" id="core" data-filter=".core">core</div>
 				<div class="btn" id="producers" data-filter=".producers">producers</div>
+				<div class="btn" id="engagement" data-filter=".engagement">engagement</div>
 				<div class="btn" id="strategy" data-filter=".strategy">strategy</div>
 				<div class="btn" id="technology" data-filter=".technology">technology</div>
 				<div class="btn" id="designers" data-filter=".designers">designers</div>
@@ -57,26 +58,27 @@
 		</div>
 		<div id="users"></div>
 		<footer>
-			<input type="text" value="" />
+			<input id="search" type="text" value="" />
 			<div id="colors">
 				<div class="color status-0" id="c-0" data-filter=".status-0"></div>
-				<div class="color status-1" id="c-1" data-filter=".status-1"></div>
-				<div class="color status-2" id="c-2" data-filter=".status-2"></div>
-				<div class="color status-3" id="c-3" data-filter=".status-3"></div>
-				<div class="color status-4" id="c-4" data-filter=".status-4"></div>
-				<div class="color status-5" id="c-5" data-filter=".status-5"></div>
+				<!-- <div class="color status-1" id="c-1" data-filter=".status-1"></div> -->
+				<div class="color status-1" id="c-1" data-filter=".status-2"></div>
+				<!-- <div class="color status-3" id="c-3" data-filter=".status-3"></div> -->
+				<div class="color status-2" id="c-2" data-filter=".status-4"></div>
+				<div class="color status-3" id="c-3" data-filter=".status-5"></div>
 			</div>
 		</footer>
 
 		<div id="change-color">
 			<div id="close">x</div>
 			<p>&nbsp;</p>
+			<input id="working-on" type="text" value="" />
 			<div class="update-color status-0" id="u-0">Free</div>
-			<div class="update-color status-1" id="u-1">A Little Workload</div>
-			<div class="update-color status-2" id="u-2">Pretty Crazy</div>
-			<div class="update-color status-3" id="u-3">Insane</div>
-			<div class="update-color status-4" id="u-4">Leave Me the Fuck Alone</div>
-			<div class="update-color status-5" id="u-5">Out of Office</div>
+			<!-- <div class="update-color status-1" id="u-1">A Little Workload</div> -->
+			<div class="update-color status-1" id="u-1">Slightly Busy</div>
+			<!-- <div class="update-color status-3" id="u-3">Insane</div> -->
+			<div class="update-color status-2" id="u-2">Busy</div>
+			<div class="update-color status-3" id="u-3">Out of Office</div>
 		</div>
 	</div>
 </body>

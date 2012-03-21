@@ -1,19 +1,29 @@
-<?php 
+<?php
 	if( $_POST["action"] == "update" )
 	{
 		$mongo  = new Mongo();
 		$db = $mongo->big_spaceship;
 		$staff_collection = $db->staff;
 
-		$status = $_POST['status'];
+		$project = $_POST['project'];
+
+		if( isset( $_POST['status'] ) )
+		{
+			$status = $_POST['status'];
+			$update_array = array(
+					'status' => $status,
+					'current_project' => $project
+				);
+		}else
+		{
+			$update_array = array( 'current_project' => $project );
+		}
+
 		$success = $staff_collection->update(
 			array(
 				"full_name" => $_POST['name']
 			),
-			array( '$set' => array(
-					'status' => $status
-				)	
-			)
+			array( '$set' => $update_array )
 		);
 
 		if( $success )

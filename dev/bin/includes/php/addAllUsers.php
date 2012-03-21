@@ -9,6 +9,7 @@
 			"team" => "Milkshake Enterprise",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -18,6 +19,7 @@
 			"team" => "Core",
 			"discipline" => "core",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -27,6 +29,7 @@
 			"team" => "Squid Republic",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -36,6 +39,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -43,8 +47,9 @@
 			"title" => "Client Services Manager",
 			"email" => "b.beacham@bigspaceship.com",
 			"team" => "NO_TEAM",
-			"discipline" => "strategy",
+			"discipline" => "engagement",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -54,6 +59,7 @@
 			"team" => "y [it's spanish]",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -63,6 +69,7 @@
 			"team" => "Squid Republic",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -72,6 +79,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -81,6 +89,7 @@
 			"team" => "Cheapies Playhaus",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -90,6 +99,7 @@
 			"team" => "y [it's spanish]",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -99,6 +109,7 @@
 			"team" => "Core",
 			"discipline" => "core",
 			"password" => "asdzxc;",
+			"current_project" => "Administration",
 			"status" => "0"
 		),
 		array(
@@ -108,6 +119,7 @@
 			"team" => "Cheapies Playhaus",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -117,6 +129,7 @@
 			"team" => "Cheapies Playhaus",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -126,6 +139,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -135,6 +149,7 @@
 			"team" => "Milkshake Enterprise",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -144,6 +159,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -153,6 +169,7 @@
 			"team" => "Squid Republic",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -162,6 +179,7 @@
 			"team" => "Cheapies Playhaus",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -171,6 +189,7 @@
 			"team" => "Strategy",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -180,6 +199,7 @@
 			"team" => "The Special Bears",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -189,6 +209,7 @@
 			"team" => "Core",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -198,6 +219,7 @@
 			"team" => "y [it's spanish]",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -207,6 +229,7 @@
 			"team" => "The Special Bears",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -216,6 +239,7 @@
 			"team" => "Squid Republic",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -225,6 +249,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -234,6 +259,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -243,6 +269,7 @@
 			"team" => "Core",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -250,8 +277,9 @@
 			"title" => "VP, Client Strategy and Engagement",
 			"email" => "m.lipson@bigspaceship.com",
 			"team" => "Core",
-			"discipline" => "strategy",
+			"discipline" => "engagement",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -261,6 +289,7 @@
 			"team" => "Core",
 			"discipline" => "core",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -270,6 +299,7 @@
 			"team" => "NO_TEAM",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -279,6 +309,7 @@
 			"team" => "The Special Bears",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -288,6 +319,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -297,6 +329,7 @@
 			"team" => "Milkshake Enterprise",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -306,6 +339,7 @@
 			"team" => "Core",
 			"discipline" => "core",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -315,6 +349,7 @@
 			"team" => "y [it's spanish]",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -324,6 +359,7 @@
 			"team" => "The Stephanies",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -333,6 +369,7 @@
 			"team" => "Core",
 			"discipline" => "core",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -342,6 +379,7 @@
 			"team" => "Core",
 			"discipline" => "core",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -351,6 +389,7 @@
 			"team" => "Milkshake Enterprise",
 			"discipline" => "producers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -360,6 +399,7 @@
 			"team" => "Squid Republic",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -369,6 +409,7 @@
 			"team" => "Milkshake Enterprise",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -378,6 +419,7 @@
 			"team" => "Cheapies Playhaus",
 			"discipline" => "technology",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -387,6 +429,7 @@
 			"team" => "The Special Bears",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -396,6 +439,7 @@
 			"team" => "Milkshake Enterprise",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -405,6 +449,7 @@
 			"team" => "Squid Republic",
 			"discipline" => "designers",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -414,6 +459,7 @@
 			"team" => "Milkshake Enterprise",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -423,6 +469,7 @@
 			"team" => "y [it's spanish]",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		),
 		array(
@@ -432,6 +479,27 @@
 			"team" => "Core",
 			"discipline" => "core",
 			"password" => "asdzxc;",
+			"current_project" => "",
+			"status" => "0"
+		),
+		array(
+			"full_name" => "Matt Leiker",
+			"title" => "Producer",
+			"email" => "m.leiker@bigspaceship.com",
+			"team" => "Milkshake Enterprise",
+			"discipline" => "producers",
+			"password" => "asdzxc;",
+			"current_project" => "",
+			"status" => "0"
+		),
+		array(
+			"full_name" => "Kate Collinson",
+			"title" => "Client Engagement",
+			"email" => "k.collinson@bigspaceship.com",
+			"team" => "Core",
+			"discipline" => "engagement",
+			"password" => "asdzxc;",
+			"current_project" => "",
 			"status" => "0"
 		)
 	);
@@ -439,7 +507,7 @@
 	$mongo  = new Mongo();
 	$db = $mongo->big_spaceship;
 	$staff_collection = $db->staff;
-	
+
 	foreach( $users as $user )
 	{
 		$staff_collection->insert( $user );
