@@ -186,6 +186,12 @@ var ProgramlandSecurity = new(function()
 		$( '#search' ).keyup( _search );
 		$( '#working-on' ).keyup( _sendNewUserData );
 
+		$( "input, textarea" ).focus(
+			function()
+			{
+				this.select();
+			}
+		)
 		$( '#nav' ).isotope({
 			itemSelector: '.btn',
 			layoutMode: 'fitRows',
@@ -406,11 +412,16 @@ var ProgramlandSecurity = new(function()
 		// console.log( '_userClickHandler', id );
 		_currentUserID = id;
 		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
-		var project = _getProjectFromID( _currentUserID.split( '-' )[1] );
+		var project = _getProjectFromID( _currentUserID.split( '-' )[1] ) || "Totally free!";
 
-		// todo: update all opacity animations to use CSS transitions or jQuery
 		$( '#change-color p' ).html( name );
 		$( '#working-on' ).val( project );
+		// $( '#working-on' ).focus(function(){
+		// 	$( this ).select();
+		// });
+
+		$( '#working-on' ).focus();
+
 		if( _hasCSSTransitions )
 		{
 			$( '#change-color' ).addClass( 'active' );
