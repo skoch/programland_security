@@ -1,5 +1,13 @@
 <?php
 	define( 'IS_DEV', false );
+	if( isset( $_GET['b'] ) && $_GET['b'] == '1')
+	{
+		define( 'BIG_SCREEN', true );
+	}else
+	{
+		define( 'BIG_SCREEN', false );
+	}
+	define( 'BIG_SCREEN', true );
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,10 +16,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/css/master.css" />
-		<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
+		<?php if( BIG_SCREEN ): ?>
+<link rel="stylesheet" type="text/css" media="screen" href="includes/css/big-screen.css" />
+		<?php endif; ?>
+<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Doppio+One'>
 
 		<script type="text/javascript" src="includes/js/modernizr.custom.js"></script>
 		<script type="text/javascript">
+
 			Modernizr.load({
 			// yepnope({
 				test: Modernizr.csstransitions,
@@ -30,7 +42,7 @@
 				],
 				complete: function()
 				{
-					ProgramlandSecurity.init();
+					ProgramlandSecurity.init( <?= BIG_SCREEN ?> );
 				}
 			});
 		</script>
