@@ -1,5 +1,5 @@
 <?php
-	define( 'IS_DEV', true );
+	define( 'IS_DEV', false );
 ?>
 <!DOCTYPE html>
 <html>
@@ -62,10 +62,10 @@
 			<div id="colors">
 				<div class="color status-0" id="c-0" data-filter=".status-0"></div>
 				<!-- <div class="color status-1" id="c-1" data-filter=".status-1"></div> -->
-				<div class="color status-1" id="c-1" data-filter=".status-2"></div>
+				<div class="color status-1" id="c-1" data-filter=".status-1"></div>
 				<!-- <div class="color status-3" id="c-3" data-filter=".status-3"></div> -->
-				<div class="color status-2" id="c-2" data-filter=".status-4"></div>
-				<div class="color status-3" id="c-3" data-filter=".status-5"></div>
+				<div class="color status-2" id="c-2" data-filter=".status-2"></div>
+				<div class="color status-3" id="c-3" data-filter=".status-3"></div>
 			</div>
 		</footer>
 
