@@ -181,6 +181,10 @@ var ProgramlandSecurity = new(function()
 			function()
 			{
 				$( '#search' ).val( '' );
+				if( $( '#change-color' ).hasClass( 'active' ) )
+				{
+					$( '#change-color #close' ).click();
+				}
 			}
 		);
 		$( "input, textarea" ).focus(
