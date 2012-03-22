@@ -1,5 +1,5 @@
 <?php
-	
+
 	$mongo  = new Mongo();
 	$db = $mongo->big_spaceship;
 	$staff_collection = $db->staff;
@@ -7,13 +7,14 @@
 	if( isset( $_POST['full_name'] ) )
 	{
 		$user = array(
-			"full_name" 	=> $_POST['full_name'],
-			"title" 		=> $_POST['title'],
-			"email" 		=> $_POST['email'],
-			"team" 			=> $_POST['team'],
-			"discipline" 	=> $_POST['discipline'],
-			"password" 		=> $_POST['password'],
-			"status" 		=> $_POST['status']
+			"full_name" 		=> $_POST['full_name'],
+			"title" 			=> $_POST['title'],
+			"email" 			=> $_POST['email'],
+			"team" 				=> $_POST['team'],
+			"discipline" 		=> $_POST['discipline'],
+			"current_project" 	=> $_POST['current_project'],
+			"password" 			=> $_POST['password'],
+			"status" 			=> $_POST['status']
 		);
 
 		if( $staff_collection->insert( $user ) )
@@ -46,6 +47,7 @@
 
 		$disciplines = array(
 			"producers",
+			"engagement",
 			"strategy",
 			"technology",
 			"designers",
@@ -58,10 +60,8 @@
 
 		$status_text = array(
 			"Free",
-			"A Little Workload",
-			"Pretty Crazy",
-			"Insane",
-			"Leave this person alone"
+			"Slightly Busy",
+			"Busy"
 		);
 		foreach( $status_text as $key=>$option )
 		{
@@ -77,6 +77,7 @@
 					Title: <input type="text" name="title"><br>
 					Email: <input type="text" name="email"><br>
 					Password: <input type="password" name="password"><br>
+					Current Project: <input type="current_project" name="current_project"><br>
 					Team: <select name="team">
 								$teamsHTML
 							</select><br>
@@ -89,7 +90,7 @@
 					<input type="submit">
 				</form>
 			</body>
-		</html>	
+		</html>
 EOF;
 		echo $eof;
 	}
