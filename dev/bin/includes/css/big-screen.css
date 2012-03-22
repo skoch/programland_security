@@ -1,0 +1,15 @@
+#group-name {
+  font-size: 55px;
+}
+.user {
+  width: 400px;
+  margin: 5px;
+  height: 100px;
+}
+.user p {
+  padding-top: 10px;
+  font-size: 39px;
+}
+.user p span {
+  font-size: 25px;
+}
