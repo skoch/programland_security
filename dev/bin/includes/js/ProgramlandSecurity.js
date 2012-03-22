@@ -183,15 +183,16 @@ var ProgramlandSecurity = new(function()
 				$( '#search' ).val( '' );
 			}
 		);
-		$( '#search' ).keyup( _search );
-		$( '#working-on' ).keyup( _sendNewUserData );
-
 		$( "input, textarea" ).focus(
 			function()
 			{
 				this.select();
 			}
-		)
+		);
+
+		$( '#search' ).keyup( _search );
+		$( '#working-on' ).keyup( _sendNewUserData );
+
 		$( '#nav' ).isotope({
 			itemSelector: '.btn',
 			layoutMode: 'fitRows',
@@ -404,11 +405,10 @@ var ProgramlandSecurity = new(function()
 	{
 		$( '#search' ).val( '' );
 
-		var id = $( $evt.target ).attr( 'id' );
-		if( ! id )
-		{
-			id = $( $evt.target ).parent().attr( 'id' );
-		}
+		var id = $( $evt.target ).attr( 'id' ) ||
+			$( $evt.target ).parent().attr( 'id' ) ||
+			$( $evt.target ).parent().parent().attr( 'id' );
+
 		// console.log( '_userClickHandler', id );
 		_currentUserID = id;
 		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
@@ -416,10 +416,6 @@ var ProgramlandSecurity = new(function()
 
 		$( '#change-color p' ).html( name );
 		$( '#working-on' ).val( project );
-		// $( '#working-on' ).focus(function(){
-		// 	$( this ).select();
-		// });
-
 		$( '#working-on' ).focus();
 
 		if( _hasCSSTransitions )
