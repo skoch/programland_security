@@ -21,12 +21,14 @@ var ProgramlandSecurity = new(function()
 	var _hasCSSTransitions = false;
 	var _newGroupName = '';
 	var _transEndEventName = '';
+	var _isBigScreen = false;
 
 	var _colors = [ '#339900', '#FFCC00',, '#CC0033', '#DCDCDC' ];
 	var _statuses = [ "Free","Slightly Busy", "Busy", "Out of Office" ];
 
-	this.init = function init()
+	this.init = function init( $isBigScreen )
 	{
+		_isBigScreen = $isBigScreen;// note that this comes in as a number
 		_setBrowser();
 		_hasCSSTransitions = Modernizr.csstransitions;
 
@@ -197,11 +199,17 @@ var ProgramlandSecurity = new(function()
 		$( '#search' ).keyup( _search );
 		$( '#working-on' ).keyup( _sendNewUserData );
 
-		$( '#nav' ).isotope({
-			itemSelector: '.btn',
-			layoutMode: 'fitRows',
-			animationEngine : 'best-available'
-		});
+		if( _isBigScreen )
+		{
+			$( '#nav' ).hide();
+			$( '#search' ).hide();
+			$( '#colors' ).hide();
+		};
+		// $( '#nav' ).isotope({
+		// 	itemSelector: '.btn',
+		// 	layoutMode: 'fitRows',
+		// 	animationEngine : 'best-available'
+		// });
 
 		$( '#users' ).isotope({
 			itemSelector: '.user',
@@ -407,6 +415,8 @@ var ProgramlandSecurity = new(function()
 
 	function _userClickHandler( $evt )
 	{
+		if( _isBigScreen ) return;
+
 		$( '#search' ).val( '' );
 
 		var id = $( $evt.target ).attr( 'id' ) ||
