@@ -72,7 +72,7 @@
 		<div id="change-color">
 			<div id="close">x</div>
 			<p>&nbsp;</p>
-			<input id="working-on" type="text" value="" />
+			<input id="working-on" type="text" value="Default" />
 			<div class="update-color status-0" id="u-0">Free</div>
 			<!-- <div class="update-color status-1" id="u-1">A Little Workload</div> -->
 			<div class="update-color status-1" id="u-1">Slightly Busy</div>

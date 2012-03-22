@@ -181,8 +181,19 @@ var ProgramlandSecurity = new(function()
 			function()
 			{
 				$( '#search' ).val( '' );
+				if( $( '#change-color' ).hasClass( 'active' ) )
+				{
+					$( '#change-color #close' ).click();
+				}
 			}
 		);
+		$( "input, textarea" ).focus(
+			function()
+			{
+				this.select();
+			}
+		);
+
 		$( '#search' ).keyup( _search );
 		$( '#working-on' ).keyup( _sendNewUserData );
 
@@ -398,19 +409,19 @@ var ProgramlandSecurity = new(function()
 	{
 		$( '#search' ).val( '' );
 
-		var id = $( $evt.target ).attr( 'id' );
-		if( ! id )
-		{
-			id = $( $evt.target ).parent().attr( 'id' );
-		}
+		var id = $( $evt.target ).attr( 'id' ) ||
+			$( $evt.target ).parent().attr( 'id' ) ||
+			$( $evt.target ).parent().parent().attr( 'id' );
+
 		// console.log( '_userClickHandler', id );
 		_currentUserID = id;
 		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
-		var project = _getProjectFromID( _currentUserID.split( '-' )[1] );
+		var project = _getProjectFromID( _currentUserID.split( '-' )[1] ) || "Totally free!";
 
-		// todo: update all opacity animations to use CSS transitions or jQuery
 		$( '#change-color p' ).html( name );
 		$( '#working-on' ).val( project );
+		$( '#working-on' ).focus();
+
 		if( _hasCSSTransitions )
 		{
 			$( '#change-color' ).addClass( 'active' );
