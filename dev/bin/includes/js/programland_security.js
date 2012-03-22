@@ -42,15 +42,18 @@ $(document).ready(
 		var _allLists			= [];
 		
 		var _colors = ['#339900', '#006699', '#FFCC00', '#FF9900', '#CC0033'];
+		var _statuses = ["Free", "A Little Workload", "Pretty Crazy", "Insane", "Leave Me the Fuck Alone" ];
 		
 		init();
 
 		function init()
 		{
-			console.log( 'INIT' );
+			_setBrowser();
+
+			setTimeout( function(){ window.scrollTo( 0, 1 ); }, 100 );
 
 			_addMouseOver( $( '.btn' ) );
-			$( '.btn' ).click( _clickHandler );
+			$( '.btn' ).click( _btnClickHandler );
 			// var a = [{'full_name': 'Able Parris'},{'full_name': 'Stephen Koch'},{'full_name': 'Zelda Jones'},{'full_name': 'Xavier Humphrey'}];
 			// a.sort( _sortOnUserLastName );
 			// console.log( a );
@@ -66,39 +69,60 @@ $(document).ready(
 			// console.log( _users );
 
 			_allLists = [
-				{'list': _users, 'anti': [], 'name': "Big Spaceship", 'id': 'all'},
-				{'list': _coreList, 'anti': _coreAntiList, 'name': "Core", 'id': 'core'},
-				{'list': _codersList, 'anti': _codersAntiList, 'name': "Coders", 'id': 'coders'},
-				{'list': _producersList, 'anti': _producersAntiList, 'name': "Producers", 'id': 'producers'},
-				{'list': _designersList, 'anti': _designersAntiList, 'name': "Designers", 'id': 'designers'},
-				{'list': _strategyList, 'anti': _strategyAntiList, 'name': "Strategy", 'id': 'strategy'},
-				{'list': _squidsList, 'anti': _squidsAntiList, 'name': "Squid Republic", 'id': 'squids'},
-				{'list': _bearsList, 'anti': _bearsAntiList, 'name': "The Special Bears", 'id': 'bears'},
-				{'list': _cheapiesList, 'anti': _cheapiesAntiList, 'name': "Cheapies Playhaus", 'id': 'cheapies'},
-				{'list': _stephaniesList, 'anti': _stephaniesAntiList, 'name': "The Stephanies", 'id': 'stephanies'},
-				{'list': _robotsList, 'anti': _robotsAntiList, 'name': "Candy Robots", 'id': 'robots'},
-				{'list': _milkshakeList, 'anti': _milkshakeAntiList, 'name': "Milkshake Enterprise", 'id': 'milkshake'},
-				{'list': _noTeamList, 'anti': _noTeamAntiList, 'name': "Unassigned!", 'id': 'none'},
+				// {'list': _users, 'anti': [], 'name': "Big Spaceship", 'id': 'all', 'filter': '.'},
+				{'list': _coreList, 'anti': _coreAntiList, 'name': "Core", 'id': 'core', 'filter': '.core'},
+				{'list': _codersList, 'anti': _codersAntiList, 'name': "Coders", 'id': 'coders', 'filter': '.technology'},
+				{'list': _producersList, 'anti': _producersAntiList, 'name': "Producers", 'id': 'producers', 'filter': '.producers'},
+				{'list': _designersList, 'anti': _designersAntiList, 'name': "Designers", 'id': 'designers', 'filter': '.designers'},
+				{'list': _strategyList, 'anti': _strategyAntiList, 'name': "Strategy", 'id': 'strategy', 'filter': '.strategy'},
+				{'list': _squidsList, 'anti': _squidsAntiList, 'name': "Squid Republic", 'id': 'squids', 'filter': '.squids'},
+				{'list': _bearsList, 'anti': _bearsAntiList, 'name': "The Special Bears", 'id': 'bears', 'filter': '.bears'},
+				{'list': _cheapiesList, 'anti': _cheapiesAntiList, 'name': "Cheapies Playhaus", 'id': 'cheapies', 'filter': '.cheapies'},
+				{'list': _stephaniesList, 'anti': _stephaniesAntiList, 'name': "The Stephanies", 'id': 'stephanies', 'filter': '.stephanies'},
+				{'list': _robotsList, 'anti': _robotsAntiList, 'name': "y [it's spanish]", 'id': 'robots', 'filter': '.robots'},
+				{'list': _milkshakeList, 'anti': _milkshakeAntiList, 'name': "Milkshake Enterprise", 'id': 'milkshake', 'filter': '.milkshake'}
+				// {'list': _noTeamList, 'anti': _noTeamAntiList, 'name': "Unassigned!", 'id': 'none', 'filter': '.'},
 			];
 
-			// console.log( 'users', _users );
 			var items = [];
-			var _running_height = 0;
+			// var _running_height = 0;
 			for( var i = 0; i < _users.length; i++ )
 			{
 				_users[i].status = Math.round( Math.random() * 4 );
 				// console.log( _users[i] );
 
-				var x = ((_boxWidth) + 10) * (i % 5);
-				var y = ((_boxHeight) + 10) * parseInt(i / 5);
-				$( '#users' ).append( '<div class="user" id="user-' + i + '"><p>' + _users[i].full_name + '</p></div>' );
-				$( '#user-' + i ).css( {left: Number( x ), top: Number( y ), backgroundColor: _colors[_users[i].status]} );
-				
-				_running_height += ( x == 0 ) ? _boxHeight + 10 : 0;
+				// grab the filters for isotope
+				var filters = _users[i].discipline;
+				for( var ii = _allLists.length - 1; ii >= 0; ii-- )
+				{
+					if( _users[i].team != 'Core' && _allLists[ii].name == _users[i].team )
+					{
+						filters += ' ' + _allLists[ii].id;
+						break;
+					}
+				}
+
+				filters +=  ' status-' + _users[i].status;
+
+				// console.log( _users[i].full_name, filters );
+
+				var x = ( ( _boxWidth ) + 10 ) * ( i % 5 );
+				var y = ( ( _boxHeight ) + 10 ) * parseInt( i / 5 );
+				var name = _users[i].full_name;
+				if( jQuery.browser.iphone )
+				{
+					var pieces = _users[i].full_name.split( ' ' );
+					name = pieces[0].charAt( 0 ) + '. ' + pieces[pieces.length - 1];
+				}
+				$( '#users' ).append( '<div class="user ' + filters + '" id="user-' + i + '" data-filter=".status-' + _users[i].status + '"><p>' + name + '</p></div>' );
+				// $( '#user-' + i ).css( {left: Number( x ), top: Number( y ), backgroundColor: _colors[_users[i].status]} );
+				$( '#user-' + i ).css( {backgroundColor: _colors[_users[i].status]} );
+
+				// $( '#user-' + i ).click( _userClickHandler );
+
+				// _running_height += ( x == 0 ) ? _boxHeight + 10 : 0;
 				_users[i].id = i;
 				
-				// console.log( _users[i].team, _users[i].team.indexOf( "Bears" ) );
-
 				// push everyone in this discipline to this list otherwise put them in the other list
 				if( _users[i].discipline.indexOf( "technology" ) != -1 ) _codersList.push( _users[i] );
 				else _codersAntiList.push( _users[i] );
@@ -138,12 +162,37 @@ $(document).ready(
 
 			}
 
-			$( '#users' ).css( 'height', _running_height );
+			// $( '.user' ).click( _userClickHandler );
+			$( '.color' ).click( _colorClickHandler );
 
-			$( '#top-bar' ).animate(
+			$( '#nav' ).isotope({
+				itemSelector: '.btn',
+				layoutMode: 'fitRows',
+				animationEngine : 'best-available'
+			});
+
+			$( '#users' ).isotope({
+				itemSelector: '.user',
+				layoutMode: 'fitRows',
+				animationEngine : 'best-available'
+			});
+
+			// $( '#users' ).css( 'height', _running_height );
+
+			// $( '#top-bar' ).animate(
+			// 	{ opacity: 1 },
+			// 	{
+			// 		duration: 500,
+			// 		specialEasing: { opacity: 'easeInSine' }, 
+			// 		complete: function()
+			// 		{
+			// 		}
+			// 	}
+			// );
+			$( '#container' ).animate(
 				{ opacity: 1 },
 				{
-					duration: 1000,
+					duration: 500,
 					specialEasing: { opacity: 'easeInSine' }, 
 					complete: function()
 					{
@@ -151,18 +200,32 @@ $(document).ready(
 				}
 			);
 
-			_startShow();
+			if( jQuery.browser.iphone )
+			{
+				_onChangeView();
+			}else
+			{
+				_startShow();
+			}
+			
+			// _onChangeView();
+			// $( '#users' ).isotope({ filter: '.technology' });
+			// _setActiveButtonByID( 'coders' );
 		};
 
 		function _onChangeView()
 		{
 			var i = _iterations++ % _allLists.length;
-			_animateUsersIn( _allLists[i].list );
+
 			_setGroupName( _allLists[i].name );
-			
 			_setActiveButtonByID( _allLists[i].id );
-			
-			_animateUsersOut( _allLists[i].anti );
+			var selector = _allLists[i].filter;
+			$( '#users' ).isotope({ filter: selector });
+
+			// _animateUsersIn( _allLists[i].list );
+			// _setGroupName( _allLists[i].name );
+			// _setActiveButtonByID( _allLists[i].id );
+			// _animateUsersOut( _allLists[i].anti );
 		};
 
 		function _setGroupName( $name )
@@ -194,11 +257,19 @@ $(document).ready(
 		{
 			for( var i = _allLists.length - 1; i >= 0; i-- )
 			{
-				$( '#' + _allLists[i].id ).css( 'background-color', '#fff' );
+				$( '#' + _allLists[i].id ).css( 'background-color', '' );
 				$( '#' + _allLists[i].id ).removeClass( 'active' );
 			}
 
-			$( '#' + $id ).css( 'background-color', '#f9f9f9' );
+			if( jQuery.browser.iphone )
+			{
+				$( '#' + $id ).css( 'background-color', '#ddd' );
+			}else
+			{
+				$( '#' + $id ).css( 'background-color', '#f9f9f9' );
+			}
+
+			
 			$( '#' + $id ).addClass( 'active' );
 		};
 
@@ -289,17 +360,34 @@ $(document).ready(
 				// console.log( 'out', $( this ).hasClass( 'active' ) );
 				if( ! $( this ).hasClass( 'active' ) )
 				{
-					$( this ).css( 'background-color', '#fff' );
+					$( this ).css( 'background-color', '' );
 				}
 			});
 		};
 
-		function _clickHandler( $evt )
+		function _userClickHandler( $evt )
+		{
+
+		};
+
+		function _colorClickHandler( $evt )
+		{
+			var selector = $( $evt.target ).attr( 'data-filter' );
+			if( ! selector )
+			{
+				selector = $( $evt.target ).parent().attr( 'data-filter' );
+			}
+			// console.log( selector );
+			_setGroupName( _statuses[selector.split( '-' )[1]] );
+			$( '#users' ).isotope({ filter: selector });
+		};
+
+		function _btnClickHandler( $evt )
 		{
 			// console.log( $evt.target.id );
 			if( $evt.target.id == 'o' )
 			{
-				console.log( 'toggle', _running );
+				// console.log( 'toggle', _running );
 				if( ! _running )
 				{
 					_startShow();
@@ -312,17 +400,24 @@ $(document).ready(
 				return;
 			}
 			
-			_stopShow();
+			if( ! jQuery.browser.iphone )
+			{
+				_stopShow();
+			}
+			
+			var selector = $( $evt.target ).attr( 'data-filter' );
+			$( '#users' ).isotope({ filter: selector });
+			_setActiveButtonByID( $evt.target.id );
 
 			for( var i = _allLists.length - 1; i >= 0; i-- )
 			{
 				if( _allLists[i].id == $evt.target.id )
 				{
 					// console.log( _allLists[i].name );
-					_animateUsersIn( _allLists[i].list );
+					// _animateUsersIn( _allLists[i].list );
 					_setGroupName( _allLists[i].name );
-					_setActiveButtonByID( $evt.target.id );
-					_animateUsersOut( _allLists[i].anti );
+					// _setActiveButtonByID( $evt.target.id );
+					// _animateUsersOut( _allLists[i].anti );
 
 					break;
 				};
@@ -340,6 +435,48 @@ $(document).ready(
 		{
 			_running = false;
 			clearInterval( _interval );
+		};
+
+		function _setBrowser()
+		{
+			var userAgent = navigator.userAgent.toLowerCase();
+			// console.log( 'useragent = ' + userAgent );
+
+			// Figure out what browser is being used
+			jQuery.browser = {
+				
+				version: (userAgent.match( /.+(?:rv|it|ra|ie|me|ve)[\/: ]([\d.]+)/ ) || [])[1],
+
+				chrome: /chrome/.test( userAgent ),
+				safari: /webkit/.test( userAgent ) && !/chrome/.test( userAgent ),
+				opera: /opera/.test( userAgent ),
+				firefox: /firefox/.test( userAgent ),
+				msie: /msie/.test( userAgent ) && !/opera/.test( userAgent ),
+
+				mozilla: /mozilla/.test( userAgent ) && !/(compatible|webkit)/.test( userAgent ),
+
+				webkit: $.browser.webkit,
+				gecko: /[^like]{4} gecko/.test( userAgent ),
+				presto: /presto/.test( userAgent ),
+
+				xoom: /xoom/.test( userAgent ),
+
+				android: /android/.test( userAgent ),
+				androidVersion: (userAgent.match( /.+(?:android)[\/: ]([\d.]+)/ ) || [0,0])[1],
+
+				iphone: /iphone|ipod/.test( userAgent ),
+				iphoneVersion: (userAgent.match( /.+(?:iphone\ os)[\/: ]([\d_]+)/ ) || [0,0])[1].toString().split('_').join('.'),
+
+				ipad: /ipad/.test( userAgent ),
+				ipadVersion: (userAgent.match( /.+(?:cpu\ os)[\/: ]([\d_]+)/ ) || [0,0])[1].toString().split('_').join('.'),
+
+				blackberry: /blackberry/.test( userAgent ),
+
+				winMobile: /Windows\ Phone/.test( userAgent ),
+				winMobileVersion: (userAgent.match( /.+(?:windows\ phone\ os)[\/: ]([\d_]+)/ ) || [0,0])[1]
+			};
+
+			jQuery.browser.mobile   =   ($.browser.iphone || $.browser.ipad || $.browser.android || $.browser.blackberry );
 		};
 	}
 );

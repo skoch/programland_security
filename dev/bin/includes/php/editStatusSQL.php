@@ -1,6 +1,6 @@
 <?php
 
-	$STATUS_TEXT = array("Free","A Little Workload","Pretty Crazy","Insane","Leave me the fuck alone");
+	$STATUS_TEXT = array("Free","A Little Workload","Pretty Crazy","Insane","Leave Me the Fuck Alone");
 
 	$header = "";
 	$success = false;
