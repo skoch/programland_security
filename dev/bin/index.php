@@ -7,7 +7,6 @@
 	{
 		define( 'BIG_SCREEN', false );
 	}
-	define( 'BIG_SCREEN', true );
 ?>
 <!DOCTYPE html>
 <html>
