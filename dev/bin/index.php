@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Programland Security</title>
+		<title>Allocations</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/css/master.css" />
@@ -51,6 +51,7 @@
 		<div id="top-bar">
 			<div id="group-name">&nbsp;</div>
 			<div id="nav">
+				<div class="btn" id="all" data-filter="*">all</div>
 				<div class="btn" id="core" data-filter=".core">core</div>
 				<div class="btn" id="producers" data-filter=".producers">producers</div>
 				<div class="btn" id="engagement" data-filter=".engagement">engagement</div>
@@ -63,7 +64,7 @@
 				<div class="btn" id="stephanies" data-filter=".stephanies">stephanies</div>
 				<div class="btn" id="robots" data-filter=".robots">y</div>
 				<div class="btn" id="milkshake" data-filter=".milkshake">milkshake</div>
-				<div class="btn" id="o">*</div>
+				<!-- <div class="btn" id="o">*</div> -->
 			</div>
 
 		</div>
@@ -77,19 +78,21 @@
 				<!-- <div class="color status-3" id="c-3" data-filter=".status-3"></div> -->
 				<div class="color status-2" id="c-2" data-filter=".status-2"></div>
 				<div class="color status-3" id="c-3" data-filter=".status-3"></div>
+				<div class="color status-4" id="c-4" data-filter=".status-4"></div>
 			</div>
 		</footer>
 
 		<div id="change-color">
 			<div id="close">x</div>
 			<p>&nbsp;</p>
-			<input id="working-on" type="text" value="Default" />
-			<div class="update-color status-0" id="u-0">Free</div>
+			<!-- <input id="working-on" type="text" value="Default" /> -->
+			<div class="update-color status-0" id="u-0">100%</div>
 			<!-- <div class="update-color status-1" id="u-1">A Little Workload</div> -->
-			<div class="update-color status-1" id="u-1">Slightly Busy</div>
+			<div class="update-color status-1" id="u-1">75%</div>
 			<!-- <div class="update-color status-3" id="u-3">Insane</div> -->
-			<div class="update-color status-2" id="u-2">Busy</div>
-			<div class="update-color status-3" id="u-3">Out of Office</div>
+			<div class="update-color status-2" id="u-2">50%</div>
+			<div class="update-color status-3" id="u-3">25%</div>
+			<div class="update-color status-4" id="u-4">0%</div>
 		</div>
 	</div>
 </body>

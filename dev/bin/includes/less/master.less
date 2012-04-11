@@ -1,5 +1,5 @@
 @import "reset.css";
-@import "gradients.css";
+// @import "gradients.css";
 
 // less
 
@@ -9,6 +9,12 @@
 @high: #F90;
 @severe: #C03;
 @ooo: #dcdcdc;
+
+@one-hundred: #00d914;
+@seventy-five: #00ae10;
+@fifty: #00820c;
+@twenty-five: #005708;
+@zero: #003d06;
 
 .opacityTrans( @time: 1s, @ease: ease-out )
 {
@@ -275,6 +281,12 @@ input
   pointer-events: none;
   z-index: 1;
 }
+
+.status-0 { background: @one-hundred; }
+.status-1 { background: @seventy-five; }
+.status-2 { background: @fifty; }
+.status-3 { background: @twenty-five; }
+.status-4 { background: @zero; }
 
 /* MEDIA QUERIES */
 /* iPhone 4 */

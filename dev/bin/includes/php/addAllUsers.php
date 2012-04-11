@@ -186,7 +186,7 @@
 			"full_name" => "Josh Teixeira",
 			"title" => "Director of Strategy",
 			"email" => "j.teixeira@bigspaceship.com",
-			"team" => "Strategy",
+			"team" => "Core",
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
 			"current_project" => "",
@@ -340,7 +340,7 @@
 			"discipline" => "core",
 			"password" => "asdzxc;",
 			"current_project" => "",
-			"status" => "0"
+			"status" => "-1"
 		),
 		array(
 			"full_name" => "Nooka Jones",
@@ -360,7 +360,7 @@
 			"discipline" => "strategy",
 			"password" => "asdzxc;",
 			"current_project" => "",
-			"status" => "0"
+			"status" => "-1"
 		),
 		array(
 			"full_name" => "Ranae Heuer",
@@ -390,7 +390,7 @@
 			"discipline" => "producers",
 			"password" => "asdzxc;",
 			"current_project" => "",
-			"status" => "0"
+			"status" => "-1"
 		),
 		array(
 			"full_name" => "Sara Lerner",
