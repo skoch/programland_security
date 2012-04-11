@@ -5,6 +5,9 @@
 
 ## Releases
 
+### 1.3 - 20120411
+* Switch to us percentages, all based on being free (rolling out to producers)
+
 ### 1.2
 * Updated for big screen GET variable
 
