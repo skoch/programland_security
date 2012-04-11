@@ -5,6 +5,9 @@
 
 ## Releases
 
+### 1.3.1 - 20120411
+* Grey for 0%
+
 ### 1.3 - 20120411
 * Switch to us percentages, all based on being free (rolling out to producers)
 
