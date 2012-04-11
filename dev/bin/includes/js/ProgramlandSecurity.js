@@ -94,7 +94,7 @@ var ProgramlandSecurity = new(function()
 		// console.log( _users );
 
 		_allLists = [
-			// {'name': "Big Spaceship", 'id': 'all', 'filter': '.'},
+			{'name': "Big Spaceship", 'id': 'all', 'filter': '.'},
 			{'name': "Core", 'id': 'core', 'filter': '.core'},
 			{'name': "Producers", 'id': 'producers', 'filter': '.producers'},
 			{'name': "Engagement", 'id': 'engagement', 'filter': '.engagement'},
@@ -111,61 +111,71 @@ var ProgramlandSecurity = new(function()
 
 		for( var i = 0; i < _users.length; i++ )
 		{
-			// _users[i].status = Math.round( Math.random() * 4 );
-
-			// grab the filters for isotope
-			var filters = _users[i].discipline;
-			for( var ii = _allLists.length - 1; ii >= 0; ii-- )
+			// sk: if status is -1, they no longer are here
+			if( _users[i].status != '-1' )
 			{
-				if( _users[i].team != 'Core' && _allLists[ii].name == _users[i].team )
+				// _users[i].status = Math.round( Math.random() * 4 );
+
+				// grab the filters for isotope
+				var filters = _users[i].discipline;
+				for( var ii = _allLists.length - 1; ii >= 0; ii-- )
 				{
-					filters += ' ' + _allLists[ii].id;
-					break;
+					// if( _users[i].team != 'Core' && _allLists[ii].name == _users[i].team )
+					if( _allLists[ii].name == _users[i].team )
+					{
+						filters += ' ' + _allLists[ii].id;
+						break;
+					}
 				}
+
+				filters +=  ' status-' + _users[i].status;
+
+				// console.log( _users[i].full_name, filters );
+
+				var name = _users[i].full_name;
+				// var project = _users[i].current_project || "Totally free!";
+				if( jQuery.browser.iphone )
+				{
+					var pieces = _users[i].full_name.split( ' ' );
+					name = pieces[0].charAt( 0 ) + '. ' + pieces[pieces.length - 1];
+				}
+				// $( '#users' ).append( '<div class="user ' + filters
+				// 	+ '" id="user-' + i
+				// 	+ '" data-filter=".status-' + _users[i].status + '"><p>'
+				// 	+ name + '<br><span>' + project + '</span></p></div>'
+				// );
+				// no longer using 'project' but instead a %
+				var percent = _getPercentageValue( _users[i].status );
+				$( '#users' ).append( '<div class="user ' + filters
+					+ '" id="user-' + i
+					+ '" data-filter=".status-' + _users[i].status + '"><p>'
+					+ name + '<br><span>' + percent + '</span></p></div>'
+				);
+
+				// sk: why was I ever setting this? just use a CSS class, dummy!
+				// $( '#user-' + i ).css( 'background', _colors[_users[i].status] );
+
+				// _users[i].id = i;
+				// _userColorList[name] = {
+				_userColorList[_users[i].full_name] = {
+					'id': i,
+					'status': _users[i].status,
+					// 'project': _users[i].current_project,
+					'color': _colors[_users[i].status]
+				};
+
+				_statusesInUse.push( _users[i].status );
+
+				/*
+					discipline: "designers"
+					email: "a.parris@bigspaceship.com"
+					full_name: "Able Parris"
+					password: "asdzxc;"
+					status: "0"
+					team: "Milkshake Enterprise"
+					title: "Sr. Designer"
+				*/
 			}
-
-			filters +=  ' status-' + _users[i].status;
-
-			// console.log( _users[i].full_name, filters );
-
-			// var x = ( ( _boxWidth ) + 10 ) * ( i % 5 );
-			// var y = ( ( _boxHeight ) + 10 ) * parseInt( i / 5 );
-			var name = _users[i].full_name;
-			var project = _users[i].current_project || "Totally free!";
-			if( jQuery.browser.iphone )
-			{
-				var pieces = _users[i].full_name.split( ' ' );
-				name = pieces[0].charAt( 0 ) + '. ' + pieces[pieces.length - 1];
-			}
-			$( '#users' ).append( '<div class="user ' + filters
-				+ '" id="user-' + i
-				+ '" data-filter=".status-' + _users[i].status + '"><p>'
-				+ name + '<br><span>' + project + '</span></p></div>'
-			);
-
-			// sk: why was I ever setting this? just use a CSS class, dummy!
-			// $( '#user-' + i ).css( 'background', _colors[_users[i].status] );
-
-			// _users[i].id = i;
-			// _userColorList[name] = {
-			_userColorList[_users[i].full_name] = {
-				'id': i,
-				'status': _users[i].status,
-				'project': _users[i].current_project,
-				'color': _colors[_users[i].status]
-			};
-
-			_statusesInUse.push( _users[i].status );
-
-			/*
-				discipline: "designers"
-				email: "a.parris@bigspaceship.com"
-				full_name: "Able Parris"
-				password: "asdzxc;"
-				status: "0"
-				team: "Milkshake Enterprise"
-				title: "Sr. Designer"
-			*/
 
 		}
 
@@ -197,7 +207,7 @@ var ProgramlandSecurity = new(function()
 		);
 
 		$( '#search' ).keyup( _search );
-		$( '#working-on' ).keyup( _sendNewUserData );
+		// $( '#working-on' ).keyup( _sendNewUserData );
 
 		if( _isBigScreen )
 		{
@@ -234,13 +244,14 @@ var ProgramlandSecurity = new(function()
 			);
 		}
 
-		if( jQuery.browser.iphone )
-		{
-			_onChangeView();
-		}else
-		{
-			_startShow();
-		}
+		_onChangeView();
+		// if( jQuery.browser.iphone )
+		// {
+		// 	_onChangeView();
+		// }else
+		// {
+		// 	_startShow();
+		// }
 
 		// humane.clickToClose = true;
 
@@ -267,11 +278,12 @@ var ProgramlandSecurity = new(function()
 
 				if( name == n )
 				{
-					if( _userColorList[n].color != _colors[$data.users[ii].status] ||
-						_userColorList[n].project != $data.users[ii].current_project
-					)
+					// if( _userColorList[n].color != _colors[$data.users[ii].status] ||
+					// 	_userColorList[n].project != $data.users[ii].current_project
+					// )
+					if( _userColorList[n].color != _colors[$data.users[ii].status] )
 					{
-						console.log( 'new project', $data.users[ii].current_project );
+						// console.log( 'new project', $data.users[ii].current_project );
 						var user = $( '#user-' + _userColorList[n].id );
 						// user.css( '-webkit-transition', 'background-color .5s linear' );
 						// user.css( '-moz-transition', 'background-color .5s linear' );
@@ -283,11 +295,12 @@ var ProgramlandSecurity = new(function()
 						user.attr( 'data-filter', '.status-' + $data.users[ii].status );
 						user.removeClass( 'status-' + _userColorList[n].status );
 						user.addClass( 'status-' + $data.users[ii].status );
-						$( '#user-' + _userColorList[n].id + ' span' ).html( $data.users[ii].current_project );
+						// $( '#user-' + _userColorList[n].id + ' span' ).html( $data.users[ii].current_project );
+						$( '#user-' + _userColorList[n].id + ' span' ).html( _getPercentageValue( $data.users[ii].status ) );
 
 						_userColorList[n].color = _colors[$data.users[ii].status];
 						_userColorList[n].status = $data.users[ii].status;
-						_userColorList[n].project = $data.users[ii].current_project;
+						// _userColorList[n].project = $data.users[ii].current_project;
 					}
 
 					break;
@@ -426,11 +439,11 @@ var ProgramlandSecurity = new(function()
 		// console.log( '_userClickHandler', id );
 		_currentUserID = id;
 		var name = _getNameFromID( _currentUserID.split( '-' )[1] );
-		var project = _getProjectFromID( _currentUserID.split( '-' )[1] ) || "Totally free!";
+		// var project = _getProjectFromID( _currentUserID.split( '-' )[1] ) || "Totally free!";
 
 		$( '#change-color p' ).html( name );
-		$( '#working-on' ).val( project );
-		$( '#working-on' ).focus();
+		// $( '#working-on' ).val( project );
+		// $( '#working-on' ).focus();
 
 		if( _hasCSSTransitions )
 		{
@@ -462,10 +475,11 @@ var ProgramlandSecurity = new(function()
 		{
 			var name = _getNameFromID( _currentUserID.split( '-' )[1] );
 			var newStatus = $evt.target.id.split( '-' )[1];
-			var newProject = $( '#working-on' ).val();
+			// var newProject = $( '#working-on' ).val();
 			$.post(
 				'includes/php/updateStatus.php',
-				{ action: 'update', name: name, status: newStatus, project: newProject },
+				// { action: 'update', name: name, status: newStatus, project: newProject },
+				{ action: 'update', name: name, status: newStatus },
 				function( $data )
 				{
 					if( $data.success )
@@ -493,10 +507,11 @@ var ProgramlandSecurity = new(function()
 			if( _currentUserID )
 			{
 				var name = _getNameFromID( _currentUserID.split( '-' )[1] );
-				var newProject = $( '#working-on' ).val();
+				// var newProject = $( '#working-on' ).val();
 				$.post(
 					'includes/php/updateStatus.php',
-					{ action: 'update', name: name, project: newProject },
+					// { action: 'update', name: name, project: newProject },
+					{ action: 'update', name: name },
 					function( $data )
 					{
 						console.log( $data.success );
@@ -712,6 +727,31 @@ var ProgramlandSecurity = new(function()
 				return _userColorList[n].project;
 			}
 		}
+	};
+
+	function _getPercentageValue( $status )
+	{
+		var r = '--';
+		switch( $status )
+		{
+			case '0' :
+				r = '100%';
+			break;
+			case '1' :
+				r = '75%';
+			break;
+			case '2' :
+				r = '50%';
+			break;
+			case '3' :
+				r = '25%';
+			break;
+			case '4' :
+				r = '0%';
+			break;
+		}
+
+		return r;
 	};
 
 	function _setBrowser()
