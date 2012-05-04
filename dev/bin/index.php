@@ -59,11 +59,12 @@
 				<div class="btn" id="technology" data-filter=".technology">technology</div>
 				<div class="btn" id="designers" data-filter=".designers">designers</div>
 				<div class="btn" id="squids" data-filter=".squids">squids</div>
-				<div class="btn" id="bears" data-filter=".bears">bears</div>
+				<!-- <div class="btn" id="bears" data-filter=".bears">bears</div> -->
 				<div class="btn" id="cheapies" data-filter=".cheapies">cheapies</div>
-				<div class="btn" id="stephanies" data-filter=".stephanies">stephanies</div>
-				<div class="btn" id="robots" data-filter=".robots">y</div>
-				<div class="btn" id="milkshake" data-filter=".milkshake">milkshake</div>
+				<!-- <div class="btn" id="stephanies" data-filter=".stephanies">stephanies</div> -->
+				<div class="btn" id="y-its-spanish" data-filter=".y-its-spanish">y</div>
+				<!-- <div class="btn" id="milkshake" data-filter=".milkshake">milkshake</div> -->
+				<div class="btn" id="gentle-milk" data-filter=".gentle-milk">gentle milk</div>
 				<!-- <div class="btn" id="o">*</div> -->
 			</div>
 
