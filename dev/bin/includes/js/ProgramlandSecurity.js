@@ -101,12 +101,14 @@ var ProgramlandSecurity = new(function()
 			{'name': "Strategy", 'id': 'strategy', 'filter': '.strategy'},
 			{'name': "Technology", 'id': 'technology', 'filter': '.technology'},
 			{'name': "Designers", 'id': 'designers', 'filter': '.designers'},
+
 			{'name': "Squid Republic", 'id': 'squids', 'filter': '.squids'},
-			{'name': "The Special Bears", 'id': 'bears', 'filter': '.bears'},
+			// {'name': "The Special Bears", 'id': 'bears', 'filter': '.bears'},
 			{'name': "Cheapies Playhaus", 'id': 'cheapies', 'filter': '.cheapies'},
-			{'name': "The Stephanies", 'id': 'stephanies', 'filter': '.stephanies'},
-			{'name': "y [it's spanish]", 'id': 'robots', 'filter': '.robots'},
-			{'name': "Milkshake Enterprise", 'id': 'milkshake', 'filter': '.milkshake'}
+			// {'name': "The Stephanies", 'id': 'stephanies', 'filter': '.stephanies'},
+			{'name': "y [it's spanish]", 'id': 'y-its-spanish', 'filter': '.y-its-spanish'},
+			// {'name': "Milkshake Enterprise", 'id': 'milkshake', 'filter': '.milkshake'}
+			{'name': "Gentle Milk", 'id': 'gentle-milk', 'filter': '.gentle-milk'}
 		];
 
 		for( var i = 0; i < _users.length; i++ )
