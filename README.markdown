@@ -5,6 +5,10 @@
 
 ## Releases
 
+### 1.4 - 20120504
+* Added script to update teams (php)
+* Updated teams for display
+
 ### 1.3.1 - 20120411
 * Grey for 0%
 
@@ -14,10 +18,8 @@
 ### 1.2
 * Updated for big screen GET variable
 
----
 ### 1.1
 * Readme file location was incorrect
 
----
 ### 1.0
 * Initial release
